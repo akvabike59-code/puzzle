@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPhotoPuzzle — Эксклюзивные деревянные пазлы из Перми</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #fdfcfb; }
+        .ozon-blue { color: #005bff; }
+        .ozon-bg { background-color: #005bff; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .wood-texture { background-color: #fcfaf7; border: 1px solid #e5e2dd; }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="font-black text-2xl tracking-tighter ozon-blue italic">MyPhotoPuzzle</div>
+            <div class="space-x-4">
+                <a href="#order" class="ozon-bg text-white px-5 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition">Заказать проект</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-12 px-4 max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <div data-aos="fade-right">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                Создаем пазлы, которые <span class="ozon-blue">не хочется разбирать</span>
+            </h1>
+            <p class="text-lg text-gray-600 mb-8">
+                Собственное производство в Перми. Используем высокоточные лазерные ЧПУ станки и премиальную березу высшего сорта. 
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#catalog" class="ozon-bg text-white text-center px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-blue-200">Смотреть каталог</a>
+                <div class="flex items-center gap-2 text-sm text-gray-500">
+                    <span class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-white text-[10px]">★</div>
+                        <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-white text-[10px]">★</div>
+                    </span>
+                    <span>Более 500+ отзывов на маркетплейсах</span>
+                </div>
+            </div>
+        </div>
+        <div class="relative" data-aos="zoom-in">
+            <img src="https://ir.ozone.ru/s3/cms/9a/t31/wc1000/puzzle_main.jpg" class="rounded-3xl shadow-2xl border-8 border-white rotate-2 hover:rotate-0 transition duration-500" alt="Пазл по фото">
+        </div>
+    </section>
+
+    <section id="catalog" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 text-center mb-12 italic">
+            <h2 class="text-3xl font-bold text-gray-900">Популярно сейчас</h2>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+            
+            <div class="bg-white p-3 rounded-2xl product-card transition duration-300" data-aos="fade-up">
+                <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card1.jpg" class="rounded-xl mb-3 w-full aspect-square object-cover" alt="Пазл А3">
+                <div class="text-red-500 font-bold text-lg italic italic">2 490 ₽ <span class="text-gray-400 line-through text-xs font-normal ml-1">4 900 ₽</span></div>
+                <h3 class="text-sm text-gray-700 leading-tight mb-3 h-10 overflow-hidden">Деревянный пазл по вашему фото, формат А3, 250 деталей</h3>
+                <a href="https://ozon.ru/..." class="block text-center border border-blue-600 text-blue-600 py-2 rounded-lg font-bold text-sm hover:bg-blue-50">Купить на Ozon</a>
+            </div>
+
+            <div class="bg-white p-3 rounded-2xl product-card transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card2.jpg" class="rounded-xl mb-3 w-full aspect-square object-cover" alt="B2B Пазлы">
+                <div class="text-gray-900 font-bold text-lg">Опт / B2B</div>
+                <h3 class="text-sm text-gray-700 leading-tight mb-3 h-10 overflow-hidden">Корпоративные подарки с вашим логотипом</h3>
+                <a href="#order" class="block text-center bg-gray-900 text-white py-2 rounded-lg font-bold text-sm">Узнать цену</a>
+            </div>
+
+            </div>
+    </section>
+
+    <section class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="wood-texture p-8 rounded-3xl" data-aos="fade-right">
+                <div class="text-blue-600 mb-4">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                </div>
+                <h4 class="font-bold text-xl mb-2">Лазер ЧПУ</h4>
+                <p class="text-gray-500 text-sm">Наше оборудование позволяет делать детали уникальной формы, которые идеально стыкуются.</p>
+            </div>
+            <div class="wood-texture p-8 rounded-3xl" data-aos="fade-up">
+                <div class="text-green-600 mb-4">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                </div>
+                <h4 class="font-bold text-xl mb-2">Эко-контроль</h4>
+                <p class="text-gray-500 text-sm">Никакого пластика. Только береза и гипоаллергенные краски. Безопасно для детей 3+.</p>
+            </div>
+            <div class="wood-texture p-8 rounded-3xl" data-aos="fade-left">
+                <div class="text-orange-600 mb-4">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                </div>
+                <h4 class="font-bold text-xl mb-2">Доставка из Перми</h4>
+                <p class="text-gray-500 text-sm">Отправляем по всей РФ через Авито, Почту или СДЭК в день заказа.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="order" class="bg-gray-900 text-white py-20 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6">Нужен индивидуальный тираж или пазл по фото?</h2>
+            <p class="text-gray-400 mb-10 text-lg">Оставьте заявку, и мы рассчитаем стоимость производства в течение 15 минут.</p>
+            
+            <form class="grid gap-4">
+                <input type="text" placeholder="Ваше имя" class="bg-gray-800 border-none p-4 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="tel" placeholder="+7 (___) ___-__-__" class="bg-gray-800 border-none p-4 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                <button type="submit" class="ozon-bg p-4 rounded-xl font-bold text-xl hover:scale-[1.02] transition">Получить расчет</button>
+            </form>
+            
+            <div class="mt-12 flex justify-center gap-8 opacity-50">
+                <span class="text-xs italic">Производство: г. Пермь, ул. Промышленная</span>
+                <span class="text-xs italic">© 2026 MyPhotoPuzzle</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+</body>
+</html>
