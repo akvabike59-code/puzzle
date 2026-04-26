@@ -19,20 +19,21 @@
 <body class="overflow-x-hidden">
 
     <nav class="fixed w-full z-50 glass-nav border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-[#005bff] rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                </div>
-                <span class="text-2xl font-black tracking-tighter uppercase italic">MyPhoto<span class="text-[#005bff]">Puzzle</span></span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-semibold text-sm">
-                <a href="#catalog" class="hover:text-blue-600 transition">Каталог</a>
-                <a href="#b2b" class="hover:text-blue-600 transition">Бизнесу</a>
-                <a href="#production" class="hover:text-blue-600 transition">Производство</a>
-            </div>
-            <a href="https://ozon.ru/s/myphotopuzzle-eksklyuzivnye-pazly-iz-dereva" target="_blank" class="bg-[#005bff] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-blue-200 hover:scale-105 transition">Магазин на Ozon</a>
-        </div>
+       <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    
+    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
+        <img src="ССЫЛКА_НА_ФОТО_1" class="rounded-xl mb-3 w-full aspect-square object-cover" alt="Пазл">
+        <div class="text-gray-900 font-bold text-base md:text-lg italic">2 490 ₽</div>
+        <h3 class="text-xs md:text-sm text-gray-700 leading-tight mb-3 flex-grow">Деревянный пазл по фото, А3</h3>
+        <a href="#" class="block text-center border border-blue-600 text-blue-600 py-2 rounded-lg font-bold text-xs md:text-sm hover:bg-blue-50 transition">В корзину</a>
+    </div>
+
+    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
+        <img src="ССЫЛКА_НА_ФОТО_2" class="rounded-xl mb-3 w-full aspect-square object-cover" alt="Пазл">
+        <div class="text-gray-900 font-bold text-base md:text-lg italic">1 890 ₽</div>
+        <h3 class="text-xs md:text-sm text-gray-700 leading-tight mb-3 flex-grow">Пазл-логотип для бизнеса</h3>
+        <a href="#" class="block text-center border border-blue-600 text-blue-600 py-2 rounded-lg font-bold text-xs md:text-sm hover:bg-blue-50 transition">Заказать</a>
+    </div>
     </nav>
 
     <section class="relative pt-40 pb-20 px-6 overflow-hidden">
@@ -136,5 +137,8 @@
     <script>
         AOS.init({ duration: 1000, once: true });
     </script>
+   <a href="https://wa.me/7XXXXXXXXXX" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl z-[100] hover:scale-110 transition duration-300">
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.484 5.229 3.484 8.405c0 6.556-5.332 11.888-11.888 11.888-2.015 0-3.992-.511-5.741-1.483l-6.246 1.706zm12.029-2.011c1.785 0 3.53-.478 5.048-1.383l.362-.216 3.753.985-1.002-3.658.237-.377c.991-1.576 1.514-3.411 1.514-5.297 0-5.418-4.408-9.826-9.825-9.826-2.625 0-5.093 1.022-6.949 2.877s-2.877 4.323-2.877 6.948c0 1.956.544 3.859 1.572 5.518l.255.411-1.11 4.053 4.148-1.132.38.225c1.51.895 3.238 1.367 5.035 1.367zm5.952-8.122c-.326-.164-1.93-.953-2.229-1.063-.3-.109-.517-.164-.734.164-.217.327-.842 1.063-1.032 1.281-.19.219-.381.246-.707.082-.326-.164-1.378-.508-2.626-1.621-.971-.866-1.626-1.936-1.817-2.263-.19-.327-.02-.504.144-.666.147-.146.326-.381.489-.572.164-.191.218-.328.326-.546.109-.219.054-.409-.027-.572-.082-.164-.734-1.771-1.005-2.426-.264-.639-.533-.553-.734-.563-.19-.01-.408-.012-.626-.012-.217 0-.571.082-.87.409-.299.327-1.142 1.118-1.142 2.726 0 1.608 1.17 3.161 1.333 3.38.164.218 2.302 3.515 5.576 4.922.779.335 1.387.535 1.86.687.782.248 1.494.213 2.056.129.627-.094 1.93-.79 2.202-1.554.272-.764.272-1.418.19-1.554-.082-.136-.299-.218-.625-.382z"/></svg>
+</a>
 </body>
 </html>
