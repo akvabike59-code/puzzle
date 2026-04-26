@@ -6,8 +6,12 @@
     <meta name="description" content="Производство уникальных деревянных пазлов в Перми. Пазлы по вашим фото на заказ, корпоративные подарки и опт. Доставка по РФ.">
     <meta name="keywords" content="деревянные пазлы Пермь, пазлы по фото, ЧПУ лазерная резка, производство пазлов">
     <title>MyPhotoPuzzle | Производство деревянных пазлов в Перми</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
+    
     <style>
         :root { --ozon-blue: #005bff; --wood: #fdfcfb; }
         body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--wood); color: #1f2937; scroll-behavior: smooth; }
@@ -16,6 +20,7 @@
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 91, 255, 0.1); }
         .gradient-text { background: linear-gradient(90deg, #005bff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .cyber-chip { background: rgba(0, 91, 255, 0.05); border: 1px solid rgba(0, 91, 255, 0.1); }
+        canvas { outline: none; }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -27,10 +32,11 @@
             </div>
             <div class="hidden md:flex space-x-6 font-bold text-sm">
                 <a href="#catalog" class="hover:text-blue-600 transition">Каталог</a>
+                <a href="#delivery" class="hover:text-blue-600 transition">Доставка</a>
+                <a href="#reviews" class="hover:text-blue-600 transition">Отзывы</a>
                 <a href="#production" class="hover:text-blue-600 transition">Производство</a>
-                <a href="#b2b" class="hover:text-blue-600 transition">Бизнесу</a>
             </div>
-            <a href="#order" class="bg-[#005bff] text-white px-5 py-2 rounded-xl font-bold text-sm hover:opacity-90 transition">Заказать</a>
+            <a href="#order" class="bg-[#005bff] text-white px-5 py-2 rounded-xl font-bold text-sm hover:opacity-90 transition shadow-lg shadow-blue-500/20">Заказать</a>
         </div>
     </nav>
 
@@ -49,22 +55,156 @@
                     <a href="#catalog" class="bg-gray-900 text-white px-10 py-4 rounded-2xl font-bold hover:bg-black transition shadow-xl">Смотреть каталог</a>
                 </div>
             </div>
+
             <div class="relative" data-aos="zoom-in" data-aos-delay="200">
-    <div id="puzzle-3d-viewport" class="w-full h-[400px] md:h-[500px] rounded-[3rem] bg-gradient-to-br from-gray-50 to-blue-50 shadow-2xl border-[12px] border-white relative overflow-hidden cursor-grab active:cursor-grabbing">
-        
-        <div class="absolute bottom-6 left-0 w-full text-center z-10 pointer-events-none">
-            <span class="bg-black/10 backdrop-blur-md text-gray-600 text-[10px] uppercase tracking-widest font-bold px-4 py-2 rounded-full">
-                Зажмите, чтобы покрутить деталь
-            </span>
+                <div id="puzzle-3d-viewport" class="w-full h-[400px] md:h-[550px] rounded-[3rem] bg-gradient-to-br from-gray-50 to-blue-50 shadow-2xl border-[12px] border-white relative overflow-hidden cursor-grab active:cursor-grabbing">
+                    <div class="absolute bottom-6 left-0 w-full text-center z-10 pointer-events-none">
+                        <span class="bg-black/10 backdrop-blur-md text-gray-600 text-[10px] uppercase tracking-widest font-bold px-4 py-2 rounded-full">
+                            Зажмите, чтобы покрутить деталь
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-white rounded-3xl shadow-xl flex flex-col items-center justify-center border border-gray-100 z-20 rotate-[-10deg]">
+                    <span class="text-4xl">🧩</span>
+                    <span class="text-[10px] font-black text-blue-600 mt-2 italic tracking-tighter">CYBER WOOD</span>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section id="catalog" class="pt-24 pb-16 bg-gray-50 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900">Популярно сейчас</h2>
+            <p class="text-gray-500 mt-2">Выбирайте готовые решения или заказывайте своё фото</p>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full product-card">
+                <div class="aspect-square mb-4 overflow-hidden rounded-xl">
+                    <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card1.jpg" class="w-full h-full object-cover" alt="Пазл А3">
+                </div>
+                <div class="text-[#005bff] font-bold text-2xl italic mb-1">2 490 ₽</div>
+                <h3 class="text-sm md:text-base text-gray-700 font-medium mb-4 flex-grow">Деревянный пазл по фото, формат А3</h3>
+                <a href="#" class="block text-center border-2 border-[#005bff] text-[#005bff] py-3 rounded-xl font-bold hover:bg-blue-50 transition">В корзину</a>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full product-card">
+                <div class="aspect-square mb-4 overflow-hidden rounded-xl">
+                    <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card2.jpg" class="w-full h-full object-cover" alt="B2B">
+                </div>
+                <div class="text-gray-900 font-bold text-2xl italic mb-1">ОПТ</div>
+                <h3 class="text-sm md:text-base text-gray-700 font-medium mb-4 flex-grow">Корпоративные подарки с вашим логотипом</h3>
+                <a href="#order" class="block text-center bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-black transition">Узнать цену</a>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full product-card">
+                <div class="aspect-square mb-4 overflow-hidden rounded-xl">
+                    <img src="https://ir.ozone.ru/s3/cms/9a/t31/wc1000/puzzle_main.jpg" class="w-full h-full object-cover" alt="Пазл">
+                </div>
+                <div class="text-[#005bff] font-bold text-2xl italic mb-1">2 490 ₽</div>
+                <h3 class="text-sm md:text-base text-gray-700 font-medium mb-4 flex-grow">Пазл "Легенда Перми", 250 деталей</h3>
+                <a href="#" target="_blank" class="block text-center bg-[#005bff] text-white py-3 rounded-xl font-bold hover:opacity-90 transition">Купить на Ozon</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="delivery" class="py-20 bg-white scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-blue-50 p-10 rounded-[3rem]" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">🚚</span> Доставка</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li><b>Пермь:</b> Самовывоз или быстрая доставка курьером.</li>
+                        <li><b>Россия:</b> СДЭК, Почта или Авито.Доставка.</li>
+                        <li class="text-sm text-blue-600 italic">Тщательно упаковываем каждую коробку в пупырку и картон.</li>
+                    </ul>
+                </div>
+                <div class="bg-orange-50 p-10 rounded-[3rem]" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">💳</span> Оплата</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li><b>Физлица:</b> Перевод, QR-код или через Маркетплейсы.</li>
+                        <li><b>Юрлица:</b> Безналичный расчет с полным пакетом документов (ИП).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-20 bg-gray-50 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 italic tracking-tight uppercase">Что говорят люди</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm relative italic text-gray-600 border border-gray-100">
+                    <p class="relative z-10">"Заказывали пазл по фото на годовщину. Детали сидят идеально, запах дерева просто обалденный. Спасибо!"</p>
+                    <div class="mt-6 flex items-center space-x-3 not-italic">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">О</div>
+                        <span class="text-sm font-bold text-gray-900">Ольга, г. Пермь</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm relative italic text-gray-600 border border-gray-100">
+                    <p class="relative z-10">"Брали оптом для сувениров в компанию. Лазерная резка очень точная, логотип напечатан ярко."</p>
+                    <div class="mt-6 flex items-center space-x-3 not-italic">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">С</div>
+                        <span class="text-sm font-bold text-gray-900">Сергей, директор IT-студии</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm relative italic text-gray-600 border border-gray-100">
+                    <p class="relative z-10">"Доставка до Питера СДЭКом за 4 дня. Коробка пришла целая, пазл очень красивый."</p>
+                    <div class="mt-6 flex items-center space-x-3 not-italic">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">А</div>
+                        <span class="text-sm font-bold text-gray-900">Анна, г. Санкт-Петербург</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="production" class="py-20 bg-white scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
+            <div data-aos="fade-up">
+                <div class="text-blue-600 text-4xl mb-4 font-black italic">01</div>
+                <h4 class="font-bold text-xl mb-2">Лазер ЧПУ</h4>
+                <p class="text-gray-500 text-sm">Микронная точность реза для идеальной стыковки.</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="text-orange-600 text-4xl mb-4 font-black italic">02</div>
+                <h4 class="font-bold text-xl mb-2">Береза</h4>
+                <p class="text-gray-500 text-sm">Используем фанеру высшего сорта с ручной шлифовкой.</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="text-green-600 text-4xl mb-4 font-black italic">03</div>
+                <h4 class="font-bold text-xl mb-2">УФ-печать</h4>
+                <p class="text-gray-500 text-sm">Экологичные чернила, которые не выцветают на солнце.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="order" class="py-24 bg-gray-900 text-white text-center px-6">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-4xl font-extrabold mb-10">Начать проект</h2>
+            <form class="space-y-4">
+                <input type="text" placeholder="Ваше имя" class="w-full p-5 bg-gray-800 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <input type="tel" placeholder="+7 (___) ___-__-__" class="w-full p-5 bg-gray-800 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <button class="w-full bg-[#005bff] py-5 rounded-2xl font-bold text-xl shadow-xl shadow-blue-500/20 hover:scale-[1.02] transition active:scale-95">Отправить заявку</button>
+            </form>
+            <div class="mt-12 text-gray-500 text-sm">
+                <p>Производство MyPhotoPuzzle</p>
+                <p class="mt-2 tracking-widest uppercase text-[10px]">г. Пермь, Индустриальный район</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 flex flex-col space-y-4 z-[100]">
+        <a href="#" class="bg-[#229ED9] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition active:scale-90">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-2.003 9.464c-.149.659-.541.823-1.091.515l-3.047-2.246-1.47 1.416c-.163.163-.3.299-.614.299l.219-3.11 5.659-5.111c.247-.219-.054-.341-.381-.124l-6.995 4.402-3.015-.943c-.655-.205-.667-.655.137-.969l11.77-4.535c.545-.199 1.021.127.83 1.282z"/></svg>
+        </a>
     </div>
 
-    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-white rounded-3xl shadow-xl flex flex-col items-center justify-center border border-gray-100 z-20 rotate-[-10deg]">
-        <span class="text-3xl">🧩</span>
-        <span class="text-[10px] font-black text-blue-600 mt-2 italic">CYBER WOOD</span>
-    </div>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({ duration: 800, once: true });
+
+        // 3D ИНИЦИАЛИЗАЦИЯ
         const init3D = () => {
             const container = document.getElementById('puzzle-3d-viewport');
             if (!container) return;
@@ -74,59 +214,58 @@
             const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             
             renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             container.appendChild(renderer.domElement);
 
-            // Создаем сложную геометрию "детали" (имитация пазла)
             const group = new THREE.Group();
             
-            // Основное тело детали
-            const boxGeo = new THREE.BoxGeometry(2.5, 2.5, 0.3);
+            // Текстура дерева
             const material = new THREE.MeshStandardMaterial({ 
-                color: 0xe3c5a8, // Цвет светлого дерева
-                roughness: 0.4,
-                metalness: 0.1
+                color: 0xcdab8f, 
+                roughness: 0.5,
+                metalness: 0.2
             });
             
-            const mainPiece = new THREE.Mesh(boxGeo, material);
+            // Деталь (Основная форма)
+            const mainPiece = new THREE.Mesh(new THREE.BoxGeometry(2.5, 2.5, 0.4), material);
             group.add(mainPiece);
 
-            // Добавляем "выступы" пазла
-            const knobGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.3, 32);
-            const knob = new THREE.Mesh(knobGeo, material);
-            knob.rotation.x = Math.PI / 2;
-            knob.position.set(1.25, 0, 0);
-            group.add(knob);
+            // Выступы (Замки пазла)
+            const knobGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.4, 32);
+            const knobRight = new THREE.Mesh(knobGeo, material);
+            knobRight.rotation.x = Math.PI / 2;
+            knobRight.position.set(1.25, 0, 0);
+            group.add(knobRight);
+
+            const knobTop = new THREE.Mesh(knobGeo, material);
+            knobTop.rotation.x = Math.PI / 2;
+            knobTop.position.set(0, 1.25, 0);
+            group.add(knobTop);
 
             scene.add(group);
 
-            // Свет
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-            scene.add(ambientLight);
+            // Освещение
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const blueLight = new THREE.PointLight(0x005bff, 1.5, 10);
+            blueLight.position.set(3, 3, 3);
+            scene.add(blueLight);
 
-            const pointLight = new THREE.PointLight(0x005bff, 1);
-            pointLight.position.set(5, 5, 5);
-            scene.add(pointLight);
+            const topLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            topLight.position.set(-5, 5, 5);
+            scene.add(topLight);
 
-            const directLight = new THREE.DirectionalLight(0xffffff, 0.5);
-            directLight.position.set(-5, 5, 0);
-            scene.add(directLight);
+            camera.position.z = 7;
 
-            camera.position.z = 6;
-
-            // Вращение
+            // Логика вращения
             let isDragging = false;
             let previousMousePosition = { x: 0, y: 0 };
 
             container.addEventListener('mousedown', () => isDragging = true);
             window.addEventListener('mouseup', () => isDragging = false);
-            
             container.addEventListener('mousemove', (e) => {
                 if (isDragging) {
-                    const deltaX = e.offsetX - previousMousePosition.x;
-                    const deltaY = e.offsetY - previousMousePosition.y;
-                    group.rotation.y += deltaX * 0.01;
-                    group.rotation.x += deltaY * 0.01;
+                    group.rotation.y += (e.offsetX - previousMousePosition.x) * 0.01;
+                    group.rotation.x += (e.offsetY - previousMousePosition.y) * 0.01;
                 }
                 previousMousePosition = { x: e.offsetX, y: e.offsetY };
             });
@@ -136,13 +275,13 @@
                 requestAnimationFrame(animate);
                 if (!isDragging) {
                     group.rotation.y += 0.005;
-                    group.rotation.z += 0.002;
+                    group.rotation.x += 0.002;
                 }
                 renderer.render(scene, camera);
             };
             animate();
 
-            // Ресайз
+            // Адаптивность
             window.addEventListener('resize', () => {
                 camera.aspect = container.clientWidth / container.clientHeight;
                 camera.updateProjectionMatrix();
@@ -150,153 +289,7 @@
             });
         };
 
-        // Запуск после загрузки страницы
         window.addEventListener('load', init3D);
     </script>
-</div>
-        </div>
-    </section>
-
-    <section id="catalog" class="pt-24 pb-16 bg-gray-50 scroll-mt-20">
-        <div class="max-w-7xl mx-auto px-4 text-center mb-10">
-            <h2 class="text-3xl font-bold text-gray-900">Популярно сейчас</h2>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-            
-            <div class="bg-white p-2 md:p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full product-card">
-                <div class="aspect-square mb-3 overflow-hidden rounded-xl">
-                    <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card1.jpg" class="w-full h-full object-cover" alt="Пазл А3">
-                </div>
-                <div class="text-[#005bff] font-bold text-lg md:text-xl italic mb-1">2 490 ₽</div>
-                <h3 class="text-[11px] md:text-sm text-gray-700 leading-tight mb-3 flex-grow line-clamp-2">Деревянный пазл по фото, А3</h3>
-                <a href="#" class="block text-center border border-[#005bff] text-[#005bff] py-2 rounded-lg font-bold text-[10px] md:text-sm hover:bg-blue-50 transition">В корзину</a>
-            </div>
-
-            <div class="bg-white p-2 md:p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full product-card">
-                <div class="aspect-square mb-3 overflow-hidden rounded-xl">
-                    <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card2.jpg" class="w-full h-full object-cover" alt="B2B">
-                </div>
-                <div class="text-gray-900 font-bold text-lg md:text-xl italic mb-1 text-blue-600">ОПТ</div>
-                <h3 class="text-[11px] md:text-sm text-gray-700 leading-tight mb-3 flex-grow line-clamp-2">Пазл-логотип для бизнеса</h3>
-                <a href="#order" class="block text-center border border-gray-900 text-gray-900 py-2 rounded-lg font-bold text-[10px] md:text-sm hover:bg-gray-50 transition">Заказать</a>
-            </div>
-
-            <div class="bg-white p-2 md:p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full product-card" data-aos="fade-up">
-                <div class="aspect-square mb-3 overflow-hidden rounded-xl">
-                    <img src="https://ir.ozone.ru/s3/cms/9a/t31/wc1000/puzzle_main.jpg" class="w-full h-full object-cover" alt="Пазл">
-                </div>
-                <div class="text-[#005bff] font-bold text-lg md:text-xl italic mb-1">2 490 ₽</div>
-                <h3 class="text-[11px] md:text-sm text-gray-700 leading-tight mb-3 flex-grow line-clamp-2">Деревянный пазл по фото, А3, 250 деталей</h3>
-                <a href="#" target="_blank" class="block text-center bg-[#005bff] text-white py-2 rounded-lg font-bold text-[10px] md:text-sm hover:opacity-90 transition">Купить на Ozon</a>
-            </div>
-
-        </div>
-    </section>
-    <section id="delivery" class="py-16 bg-white border-t border-gray-100">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="bg-blue-50 p-8 rounded-[2rem]" data-aos="fade-right">
-                <h3 class="text-2xl font-bold mb-6 flex items-center">
-                    <span class="mr-3">🚚</span> Доставка
-                </h3>
-                <ul class="space-y-4 text-gray-700">
-                    <li class="flex items-start">
-                        <b class="mr-2">Пермь:</b> Самовывоз (бесплатно) или курьер.
-                    </li>
-                    <li class="flex items-start">
-                        <b class="mr-2">РФ:</b> СДЭК, Почта России, Авито.Доставка.
-                    </li>
-                    <li class="text-sm text-gray-500 italic">Отправляем в надежной ударопрочной упаковке.</li>
-                </ul>
-            </div>
-            <div class="bg-orange-50 p-8 rounded-[2rem]" data-aos="fade-left">
-                <h3 class="text-2xl font-bold mb-6 flex items-center">
-                    <span class="mr-3">💳</span> Оплата
-                </h3>
-                <ul class="space-y-4 text-gray-700">
-                    <li><b>Для физлиц:</b> Перевод на карту или оплата на маркетплейсах.</li>
-                    <li><b>Для бизнеса:</b> Оплата по счету (ИП), предоставляем все закрывающие документы.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="reviews" class="py-20 bg-gray-50 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12">Что говорят клиенты</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 italic text-gray-600 relative">
-                <span class="text-5xl text-blue-100 absolute top-2 left-2 font-serif">“</span>
-                <p class="relative z-10 mb-4">Заказывала пазл по фото на юбилей мужа. Качество дерева поразило — очень гладкое, пахнет приятно. Собрали за вечер, теперь висит в рамке!</p>
-                <div class="flex items-center space-x-3 text-sm font-bold text-gray-900 not-italic">
-                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs">Е</div>
-                    <span>Елена, г. Пермь</span>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 italic text-gray-600 relative">
-                <span class="text-5xl text-blue-100 absolute top-2 left-2 font-serif">“</span>
-                <p class="relative z-10 mb-4">Брали партию с логотипом компании для подарков партнерам. Все четко в срок, упаковка премиальная. Рекомендую как надежного производителя.</p>
-                <div class="flex items-center space-x-3 text-sm font-bold text-gray-900 not-italic">
-                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs">М</div>
-                    <span>Михаил, ООО "Вектор"</span>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 italic text-gray-600 relative">
-                <span class="text-5xl text-blue-100 absolute top-2 left-2 font-serif">“</span>
-                <p class="relative z-10 mb-4">Пазл пришел в Москву за 3 дня СДЭКом. Детальки встают плотно, картинка яркая. Ребенок в восторге от необычных форм элементов.</p>
-                <div class="flex items-center space-x-3 text-sm font-bold text-gray-900 not-italic">
-                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">А</div>
-                    <span>Алексей, г. Москва</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <section id="production" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
-            <div>
-                <div class="text-blue-600 text-3xl mb-4 font-bold">01</div>
-                <h4 class="font-bold text-xl mb-2">Лазер ЧПУ</h4>
-                <p class="text-gray-500 text-sm">Идеальная стыковка каждой детали.</p>
-            </div>
-            <div>
-                <div class="text-orange-600 text-3xl mb-4 font-bold">02</div>
-                <h4 class="font-bold text-xl mb-2">Береза</h4>
-                <p class="text-gray-500 text-sm">Премиальное дерево без заноз.</p>
-            </div>
-            <div>
-                <div class="text-green-600 text-3xl mb-4 font-bold">03</div>
-                <h4 class="font-bold text-xl mb-2">УФ-печать</h4>
-                <p class="text-gray-500 text-sm">Цвета не выцветают годами.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="order" class="py-20 bg-gray-900 text-white text-center px-6">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl font-bold mb-8">Начать проект</h2>
-            <form class="space-y-4">
-                <input type="text" placeholder="Ваше имя" class="w-full p-4 bg-gray-800 rounded-xl outline-none">
-                <input type="tel" placeholder="+7 (___) ___-__-__" class="w-full p-4 bg-gray-800 rounded-xl outline-none">
-                <button class="w-full bg-[#005bff] py-4 rounded-xl font-bold text-lg shadow-xl shadow-blue-500/20">Отправить заявку</button>
-            </form>
-            <p class="mt-8 text-gray-500 text-xs">г. Пермь, производство MyPhotoPuzzle</p>
-        </div>
-    </footer>
-
-    <div class="fixed bottom-6 right-6 flex flex-col space-y-4 z-[100]">
-        <a href="https://t.me/ТВОЙ_НИК" target="_blank" class="bg-[#229ED9] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-2.003 9.464c-.149.659-.541.823-1.091.515l-3.047-2.246-1.47 1.416c-.163.163-.3.299-.614.299l.219-3.11 5.659-5.111c.247-.219-.054-.341-.381-.124l-6.995 4.402-3.015-.943c-.655-.205-.667-.655.137-.969l11.77-4.535c.545-.199 1.021.127.83 1.282z"/></svg>
-        </a>
-        <a href="https://wa.me/79000000000" target="_blank" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.484 5.229 3.484 8.405c0 6.556-5.332 11.888-11.888 11.888-2.015 0-3.992-.511-5.741-1.483l-6.246 1.706zm12.029-2.011c1.785 0 3.53-.478 5.048-1.383l.362-.216 3.753.985-1.002-3.658.237-.377c.991-1.576 1.514-3.411 1.514-5.297 0-5.418-4.408-9.826-9.825-9.826-2.625 0-5.093 1.022-6.949 2.877s-2.877 4.323-2.877 6.948c0 1.956.544 3.859 1.572 5.518l.255.411-1.11 4.053 4.148-1.132.38.225c1.51.895 3.238 1.367 5.035 1.367zm5.952-8.122c-.326-.164-1.93-.953-2.229-1.063-.3-.109-.517-.164-.734.164-.217.327-.842 1.063-1.032 1.281-.19.219-.381.246-.707.082-.326-.164-1.378-.508-2.626-1.621-.971-.866-1.626-1.936-1.817-2.263-.19-.327-.02-.504.144-.666.147-.146.326-.381.489-.572.164-.191.218-.328.326-.546.109-.219.054-.409-.027-.572-.082-.164-.734-1.771-1.005-2.426-.264-.639-.533-.553-.734-.563-.19-.01-.408-.012-.626-.012-.217 0-.571.082-.87.409-.299.327-1.142 1.118-1.142 2.726 0 1.608 1.17 3.161 1.333 3.38.164.218 2.302 3.515 5.576 4.922.779.335 1.387.535 1.86.687.782.248 1.494.213 2.056.129.627-.094 1.93-.79 2.202-1.554.272-.764.272-1.418.19-1.554-.082-.136-.299-.218-.625-.382z"/></svg>
-        </a>
-    </div>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init();</script>
 </body>
 </html>
