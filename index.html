@@ -3,124 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPhotoPuzzle | Производство деревянных пазлов</title>
+    <title>MyPhotoPuzzle | Производство в Перми</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧩</text></svg>">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         
-        :root { --main-blue: #005bff; --bg-soft: #f9fafb; }
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #111827; line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         
-        /* Пропорциональные отступы для секций */
-        section { padding-top: 100px; padding-bottom: 100px; }
+        /* Золотое сечение в отступах */
+        section { padding: clamp(4rem, 8vw, 8rem) 0; }
         
-        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: saturate(180%) blur(20px); }
-        .gradient-text { background: linear-gradient(135deg, #005bff 0%, #00c6ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); }
         
-        /* Плавные карточки */
-        .card-pro { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), shadow 0.3s ease; }
-        .card-pro:hover { transform: translateY(-8px); }
+        .hero-title { 
+            font-size: clamp(2.5rem, 6vw, 5rem); 
+            line-height: 0.9; 
+            letter-spacing: -0.05em; 
+        }
 
-        /* Кастомный селект для красоты */
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5em; }
+        /* Эффект сканирования для карточек */
+        .scan-effect { position: relative; overflow: hidden; }
+        .scan-effect::after {
+            content: ""; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 91, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+        .scan-effect:hover::after { top: 100%; }
+
+        .btn-primary { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px -10px rgba(0, 91, 255, 0.5);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px rgba(0, 91, 255, 0.6); }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-white text-slate-900 antialiased">
 
-    <nav class="fixed w-full z-50 glass-nav border-b border-gray-100">
+    <header class="fixed w-full top-0 z-[100] glass-header border-b border-slate-100">
         <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="#" class="text-xl font-black italic tracking-tighter uppercase">MyPhoto<span class="text-[#005bff]">Puzzle</span></a>
-            <div class="hidden md:flex items-center space-x-8 text-[13px] font-bold uppercase tracking-widest text-gray-500">
+            <div class="font-black italic text-xl tracking-tighter">MyPhoto<span class="text-blue-600">Puzzle</span></div>
+            <nav class="hidden md:flex gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
                 <a href="#catalog" class="hover:text-blue-600 transition">Каталог</a>
-                <a href="#delivery" class="hover:text-blue-600 transition">Доставка</a>
                 <a href="#calc" class="hover:text-blue-600 transition">Расчет</a>
-                <a href="#reviews" class="hover:text-blue-600 transition">Отзывы</a>
-            </div>
-            <a href="#order" class="bg-[#005bff] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-lg transition">Заказать</a>
+                <a href="#order" class="hover:text-blue-600 transition">Контакты</a>
+            </nav>
+            <a href="#calc" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider btn-primary">Цена</a>
         </div>
-    </nav>
+    </header>
 
-    <section class="pt-40 pb-20">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
-            <div data-aos="fade-up">
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 mb-8">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                    </span>
-                    <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Производство в Перми</span>
-                </div>
-                <h1 class="text-6xl md:text-7xl font-black tracking-tighter leading-[0.95] mb-8">
-                    Пазлы как <span class="gradient-text">искусство</span>
-                </h1>
-                <p class="text-lg text-gray-500 mb-10 max-w-md leading-relaxed">
-                    Создаем уникальные деревянные пазлы из сибирской березы с применением высокоточной лазерной резки.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#catalog" class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:bg-black transition shadow-xl">Смотреть каталог</a>
+    <section class="pt-40">
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <span class="text-blue-600 font-black text-xs uppercase tracking-[0.3em] mb-4 block">Handmade in Perm</span>
+                <h1 class="hero-title font-black mb-8">Магия дерева<br><span class="text-slate-300">в каждой детали</span></h1>
+                <p class="text-slate-500 text-lg max-w-md mb-10 leading-relaxed">Создаем деревянные пазлы по вашим фотографиям. Идеальный подарок, который пахнет лесом и вдохновением.</p>
+                <div class="flex gap-4">
+                    <a href="#catalog" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold text-sm hover:bg-black transition">Выбрать пазл</a>
                 </div>
             </div>
-            <div class="relative" data-aos="fade-left">
-                <div id="puzzle-3d-viewport" class="w-full aspect-square rounded-[4rem] bg-gray-50 shadow-2xl border-[16px] border-white overflow-hidden cursor-grab active:cursor-grabbing"></div>
-                <div class="absolute -bottom-4 -left-4 bg-white p-6 rounded-3xl shadow-xl border border-gray-50 text-center">
-                    <div class="text-3xl mb-1">🌲</div>
-                    <div class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Эко-материалы</div>
-                </div>
+            <div class="relative" data-aos="zoom-out" data-aos-delay="200">
+                <div id="canvas-container" class="w-full aspect-square bg-slate-50 rounded-[3rem] border-[12px] border-white shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing"></div>
             </div>
         </div>
     </section>
 
-    <section id="catalog" class="bg-gray-50">
+    <section id="catalog" class="bg-slate-50">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="mb-16 text-center">
-                <h2 class="text-4xl font-black tracking-tight mb-4 uppercase">Каталог решений</h2>
-                <div class="h-1.5 w-20 bg-blue-600 mx-auto rounded-full"></div>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div>
+                    <h2 class="text-4xl font-black tracking-tight uppercase">Готовые решения</h2>
+                    <p class="text-slate-400 font-medium">От коллекционных наборов до индивидуальных заказов</p>
+                </div>
+                <div class="h-px flex-grow bg-slate-200 mx-8 hidden md:block"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white rounded-[2.5rem] p-8 card-pro border border-gray-100 shadow-sm">
-                    <div class="aspect-square rounded-2xl bg-gray-100 mb-8 overflow-hidden">
-                        <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card1.jpg" class="w-full h-full object-cover" alt="">
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 scan-effect group">
+                    <div class="aspect-square rounded-2xl bg-slate-100 mb-6 overflow-hidden">
+                        <img src="https://ir.ozone.ru/s3/cms/9a/t31/wc1000/puzzle_main.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="">
                     </div>
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="font-black text-xl leading-tight">Пазл по фото<br><span class="text-gray-400 font-bold text-sm">Формат А3</span></h3>
-                        <span class="text-blue-600 font-black">2490₽</span>
+                    <h3 class="font-black text-lg mb-2">Классический А4</h3>
+                    <p class="text-slate-400 text-sm mb-6 font-medium">150-200 деталей, подарочная коробка.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-black text-xl">2 190 ₽</span>
+                        <a href="#order" class="text-xs font-black uppercase tracking-widest text-slate-900 hover:text-blue-600 transition">Заказать →</a>
                     </div>
-                    <a href="#order" class="block w-full py-4 text-center rounded-2xl bg-gray-50 text-xs font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition">Заказать</a>
                 </div>
-                <div class="bg-white rounded-[2.5rem] p-8 card-pro border border-gray-100 shadow-sm">
-                    <div class="aspect-square rounded-2xl bg-gray-100 mb-8 overflow-hidden">
-                        <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card2.jpg" class="w-full h-full object-cover" alt="">
+
+                <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-slate-100 scan-effect group">
+                    <div class="aspect-square rounded-2xl bg-slate-100 mb-6 overflow-hidden">
+                        <img src="https://ir.ozone.ru/s3/cms/ec/t34/wc400/card1.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="">
                     </div>
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="font-black text-xl leading-tight">Для бизнеса<br><span class="text-gray-400 font-bold text-sm">Оптовый тираж</span></h3>
-                        <span class="text-blue-600 font-black">ОПТ</span>
+                    <h3 class="font-black text-lg mb-2">Макси А3</h3>
+                    <p class="text-slate-400 text-sm mb-6 font-medium">Для тех, кто любит сложные задачи.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-black text-xl">3 490 ₽</span>
+                        <a href="#order" class="text-xs font-black uppercase tracking-widest text-slate-900 hover:text-blue-600 transition">Заказать →</a>
                     </div>
-                    <a href="#order" class="block w-full py-4 text-center rounded-2xl bg-gray-900 text-white text-xs font-black uppercase tracking-widest hover:bg-black transition">Прайс-лист</a>
                 </div>
-                <div class="bg-white rounded-[2.5rem] p-8 card-pro border border-gray-100 shadow-sm">
-                    <div class="aspect-square rounded-2xl bg-gray-100 mb-8 overflow-hidden">
-                        <img src="https://ir.ozone.ru/s3/cms/9a/t31/wc1000/puzzle_main.jpg" class="w-full h-full object-cover" alt="">
+
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] text-white flex flex-col justify-between">
+                    <div>
+                        <div class="text-blue-400 text-3xl mb-4">💼</div>
+                        <h3 class="text-2xl font-black mb-4">Для бизнеса</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed font-medium">Корпоративные подарки с вашим логотипом и уникальной формой деталей.</p>
                     </div>
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="font-black text-xl leading-tight">Пермский Край<br><span class="text-gray-400 font-bold text-sm">250 деталей</span></h3>
-                        <span class="text-blue-600 font-black">1890₽</span>
-                    </div>
-                    <a href="#" class="block w-full py-4 text-center rounded-2xl bg-blue-600 text-white text-xs font-black uppercase tracking-widest hover:opacity-90 transition">На Ozon</a>
+                    <a href="#order" class="mt-8 bg-white text-slate-900 py-4 rounded-2xl text-center font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition">Запросить ОПТ</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="calc" class="max-w-3xl mx-auto px-6">
-        <div class="bg-white p-12 md:p-16 rounded-[4rem] border-2 border-gray-50 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-8 opacity-5 font-black text-8xl uppercase tracking-tighter">Calc</div>
-            <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-tight">Расчет стоимости</h2>
-            <div class="space-y-10 relative z-10">
-                <div>
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 block">Размер
-                        
+    <section id="calc">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="bg-white rounded-[4rem] border border-slate-100 shadow-2xl p-10 md:p-16 text-center">
+                <h2 class="text-3xl font-black mb-12 uppercase tracking-tighter italic">Конфигуратор</h2>
+                <div class="grid gap-8 text-left">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block">1. Выберите формат</label>
+                        <select id="size" class="w-full p-5 rounded-2xl bg-slate-50 border-none font-bold text-lg outline-none ring-2 ring-transparent focus:ring-blue-600 transition cursor-pointer">
+                            <option value="1500">A5 — 1500 ₽</option>
+                            <option value="2500" selected>A4 — 2500 ₽</option>
+                            <option value="3800">A3 — 3800 ₽</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block">2. Упаковка</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="setBox(0, this)" class="box-opt active p-5 rounded-2xl border-2 border-blue-600 bg-blue-50 font-black text-xs uppercase tracking-widest">Картон</button>
+                            <button onclick="setBox(700, this)" class="box-opt p-5 rounded-2xl border-2 border-transparent bg-slate-50 font-black text-xs uppercase tracking-widest">Дерево</button>
+                        </div>
+                    </div>
+                    <div class="pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div id="price" class="text-5xl font-black text-blue-600 tracking-tighter">2500 ₽</div>
+                        <a href="#order" class="bg-slate-900 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest btn-primary">Заказать этот набор</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="order" class="bg-slate-900 text-white py-24">
+        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-20">
+            <div>
+                <h2 class="text-4xl font-black mb-8 italic">Свяжитесь<br>с нами</h2>
+                <p class="text-slate-400 mb-8 font-medium">Мы находимся в Перми, отправляем заказы по всей России через СДЭК и Почту.</p>
+                <div class="space-y-4 text-sm font-bold text-blue-400 uppercase tracking-widest">
+                    <div>+7 (9XX) XXX-XX-XX</div>
+                    <div>perm@myphotopuzzle.ru</div>
+                </div>
+            </div>
+            <form class="space-y-4">
+                <input type="text" placeholder="Имя" class="w-full p-5 bg-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600 transition">
+                <input type="tel" placeholder="Телефон" class="w-full p-5 bg-slate-800 rounded-2xl outline-none focus:ring-2 focus:ring-blue-600 transition">
+                <button class="w-full bg-blue-600 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition">Отправить заявку</button>
+            </form>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Calc Logic
+        let base = 2500;
+        let box = 0;
+        const priceDisplay = document.getElementById('price');
+        
+        document.getElementById('size').onchange = (e) => { base = parseInt(e.target.value); update(); };
+        
+        function setBox(val, btn) {
+            box = val;
+            document.querySelectorAll('.box-opt').forEach(b => b.classList.remove('active', 'border-blue-600', 'bg-blue-50'));
+            btn.classList.add('active', 'border-blue-600', 'bg-blue-50');
+            update();
+        }
+        
+        function update() { priceDisplay.innerText = (base + box).toLocaleString() + ' ₽'; }
+
+        // 3D Scene
+        const init3D = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const group = new THREE.Group();
+            const mat = new THREE.MeshStandardMaterial({ color: 0xcdab8f, roughness: 0.6 });
+            
+            const piece = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.4, 0.4), mat);
+            const knob = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.4, 32), mat);
+            knob.rotation.x = Math.PI/2; knob.position.set(1.2, 0, 0);
+            
+            group.add(piece, knob);
+            scene.add(group, new THREE.AmbientLight(0xffffff, 0.8));
+            
+            const l = new THREE.PointLight(0x005bff, 2, 10);
+            l.position.set(3,3,3); scene.add(l);
+            
+            camera.position.z = 6;
+            
+            let isDrag = false; let prev = { x: 0, y: 0 };
+            container.onmousedown = () => isDrag = true;
+            window.onmouseup = () => isDrag = false;
+            container.onmousemove = (e) => {
+                if(isDrag) {
+                    group.rotation.y += (e.offsetX - prev.x) * 0.01;
+                    group.rotation.x += (e.offsetY - prev.y) * 0.01;
+                }
+                prev = { x: e.offsetX, y: e.offsetY };
+            };
+
+            const run = () => {
+                requestAnimationFrame(run);
+                if(!isDrag) group.rotation.y += 0.005;
+                renderer.render(scene, camera);
+            };
+            run();
+
+            window.onresize = () => {
+                const w = container.clientWidth;
+                renderer.setSize(w, w);
+                camera.updateProjectionMatrix();
+            }
+        };
+        window.onload = init3D;
+    </script>
+</body>
+</html>
