@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyPhotoPuzzle | Marine Premium Edition</title>
+    <title>MyPhotoPuzzle | Marine Catalog Edition</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +16,7 @@
             --sea-deep: #000b18;
             --sea-bright: #003d5b;
             --accent-gold: #c5a059;
+            --accent-blue: #3b82f6;
         }
 
         body { 
@@ -23,205 +24,216 @@
             background: radial-gradient(circle at top, var(--sea-bright) 0%, var(--sea-deep) 100%);
             color: #fff;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
         
-        section { padding: clamp(4rem, 8vw, 10rem) 0; }
+        section { padding: clamp(4rem, 8vw, 8rem) 0; }
         
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
+        .glass:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255,255,255,0.2); }
 
-        .title-xl { 
-            font-size: clamp(2.5rem, 8vw, 5.5rem); 
-            line-height: 0.9; 
-            letter-spacing: -0.05em;
-            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .title-xl { font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 0.9; letter-spacing: -0.05em; }
 
         .marine-btn {
             background: #fff;
             color: #000;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex; justify-content: center; align-items: center;
         }
         .marine-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
             background: var(--accent-gold);
             color: #fff;
         }
 
-        /* Эффект морской пены/волн на фоне */
-        .waves {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/black-linen.png');
-            opacity: 0.1; pointer-events: none; z-index: 1;
+        .filter-btn.active { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+        
+        .product-card img { transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1); }
+        .product-card:hover img { transform: scale(1.1); }
+        
+        input, select, textarea {
+            background: rgba(255,255,255,0.05) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            color: white !important;
         }
     </style>
 </head>
-<body>
-
-    <div class="waves"></div>
+<body class="antialiased">
 
     <header class="fixed w-full top-0 z-[100] border-b border-white/5 bg-black/20 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-8 h-24 flex justify-between items-center">
             <div class="font-black italic text-2xl tracking-tighter uppercase">Puzzle<span class="text-blue-400">Marine</span></div>
-            <nav class="hidden lg:flex gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-white/50">
-                <a href="#about" class="hover:text-white transition">Коллекции</a>
+            <nav class="hidden lg:flex gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-white/50">
+                <a href="#catalog" class="hover:text-white transition">Каталог</a>
                 <a href="#how" class="hover:text-white transition">Процесс</a>
+                <a href="#calc" class="hover:text-white transition">Калькулятор</a>
                 <a href="#order" class="hover:text-white transition">Заказать</a>
             </nav>
-            <div class="flex items-center gap-6">
-                <span class="hidden sm:block text-[9px] font-bold text-white/30 uppercase tracking-[0.2em]">Perm • Russia</span>
-                <a href="https://t.me/your_nickname" class="w-12 h-12 glass rounded-full flex items-center justify-center hover:bg-white/10 transition">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-2.003 9.464c-.149.659-.541.823-1.091.515l-3.047-2.246-1.47 1.416c-.163.163-.3.299-.614.299l.219-3.11 5.659-5.111c.247-.219-.054-.341-.381-.124l-6.995 4.402-3.015-.943c-.655-.205-.667-.655.137-.969l11.77-4.535c.545-.199 1.021.127.83 1.282z"/></svg>
-                </a>
-            </div>
+            <a href="https://t.me/your_nickname" class="marine-btn px-8 py-3 rounded-full font-black text-[10px] uppercase tracking-widest shadow-lg">Связаться</a>
         </div>
     </header>
 
-    <section class="relative z-10 pt-52 pb-32">
+    <section class="pt-52 pb-24">
         <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20 items-center">
             <div data-aos="fade-right">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="h-px w-12 bg-blue-500"></div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Exclusive Design</span>
+                <div class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.4em] mb-8 border border-blue-500/20">Handmade Premium</div>
+                <h1 class="title-xl font-black mb-10 italic uppercase">Ваша история <br><span class="text-blue-500">в деталях</span></h1>
+                <p class="text-white/50 text-xl max-w-md mb-12 leading-relaxed font-light">Эксклюзивные деревянные пазлы. От личных портретов до шедевров мировой живописи.</p>
+                <div class="flex flex-wrap gap-6 items-center">
+                    <a href="#catalog" class="marine-btn px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-widest">Смотреть каталог</a>
                 </div>
-                <h1 class="title-xl font-black mb-10 italic uppercase">Глубина <br>твоих <span class="text-blue-500">чувств</span></h1>
-                <p class="text-white/50 text-xl max-w-md mb-12 leading-relaxed font-light">Превращаем портреты в коллекционные деревянные пазлы. Эстетика в каждой детали, рожденная в сердце Перми.</p>
-                <div class="flex flex-wrap gap-6">
-                    <a href="#order" class="marine-btn px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-widest">Создать свой шедевр</a>
-                    <div class="flex flex-col justify-center">
-                        <span class="text-2xl font-black italic tracking-tighter">от 2 500 ₽</span>
-                        <span class="text-[9px] font-bold text-white/30 uppercase tracking-widest">Premium формат</span>
-                    </div>
+            </div>
+            <div class="relative group" data-aos="zoom-in">
+                <div id="canvas-3d" class="relative w-full aspect-square glass rounded-[5rem] overflow-hidden cursor-grab active:cursor-grabbing border-white/10 shadow-3xl"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" class="bg-black/10">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-black uppercase italic tracking-tighter mb-4">Наши коллекции</h2>
+                    <p class="text-white/30 text-xs font-bold uppercase tracking-widest">Выберите готовый дизайн или закажите свой</p>
+                </div>
+                <div class="flex flex-wrap gap-3" data-aos="fade-left">
+                    <button onclick="filterCatalog('all')" class="filter-btn active px-6 py-3 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest hover:border-white/40 transition">Все</button>
+                    <button onclick="filterCatalog('portrait')" class="filter-btn px-6 py-3 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest hover:border-white/40 transition">Портреты</button>
+                    <button onclick="filterCatalog('nature')" class="filter-btn px-6 py-3 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest hover:border-white/40 transition">Природа</button>
+                    <button onclick="filterCatalog('art')" class="filter-btn px-6 py-3 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest hover:border-white/40 transition">Искусство</button>
                 </div>
             </div>
 
-            <div class="relative group" data-aos="zoom-in">
-                <div class="absolute -inset-10 bg-blue-500/20 rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition duration-700"></div>
-                <div id="canvas-3d" class="relative w-full aspect-square glass rounded-[5rem] overflow-hidden cursor-grab active:cursor-grabbing border-white/10 shadow-3xl">
-                    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase tracking-[0.3em] text-white/20 pointer-events-none">Зажмите, чтобы покрутить модель</div>
+            <div id="catalogGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
+                </div>
+        </div>
+    </section>
+
+    <section id="calc">
+        <div class="max-w-5xl mx-auto px-8">
+            <div class="glass rounded-[4rem] p-12 md:p-16 relative overflow-hidden">
+                <h2 class="text-3xl font-black mb-12 uppercase italic tracking-tighter">Расчет стоимости</h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div>
+                        <label class="text-[9px] font-black text-white/30 uppercase tracking-[0.4em] mb-4 block">Размер</label>
+                        <select id="sizeInput" class="w-full p-6 rounded-2xl font-bold text-lg outline-none">
+                            <option value="1500">А5 (Мини) — 1500 ₽</option>
+                            <option value="2500" selected>А4 (Стандарт) — 2500 ₽</option>
+                            <option value="3800">А3 (Подарочный) — 3800 ₽</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col justify-end">
+                        <div id="finalPrice" class="text-6xl font-black text-blue-500 tracking-tighter mb-2">2 500 ₽</div>
+                        <span class="text-white/30 text-[10px] font-black uppercase tracking-widest leading-none">Итого с учетом материалов</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="order" class="relative z-10 bg-black/40 border-t border-white/5">
-        <div class="max-w-5xl mx-auto px-8 text-center">
-            <h2 class="text-4xl font-black mb-16 italic uppercase tracking-tighter">Оставить заявку</h2>
-            <div class="max-w-2xl mx-auto glass p-12 rounded-[4rem]">
+    <section id="order">
+        <div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-20">
+            <div data-aos="fade-right">
+                <h2 class="text-5xl font-black uppercase italic tracking-tighter leading-tight mb-10">Заказать <br><span class="text-blue-500">свой пазл</span></h2>
+                <p class="text-white/40 text-xl leading-relaxed font-light mb-12">Заполните данные, и мы свяжемся с вами для уточнения деталей и подготовки макета.</p>
+            </div>
+            <div class="glass p-12 rounded-[4rem]" data-aos="fade-left">
                 <form class="grid gap-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <input type="text" placeholder="ИМЯ" class="bg-white/5 border border-white/10 p-6 rounded-2xl outline-none focus:border-blue-500 transition text-sm font-bold uppercase tracking-widest">
-                        <input type="tel" placeholder="ТЕЛЕФОН" class="bg-white/5 border border-white/10 p-6 rounded-2xl outline-none focus:border-blue-500 transition text-sm font-bold uppercase tracking-widest">
-                    </div>
-                    <textarea placeholder="ВАШИ ПОЖЕЛАНИЯ" class="bg-white/5 border border-white/10 p-6 rounded-2xl outline-none focus:border-blue-500 transition text-sm font-bold uppercase tracking-widest h-32"></textarea>
-                    <button class="marine-btn py-6 rounded-2xl font-black text-xs uppercase tracking-[0.4em] shadow-2xl">Отправить в мастерскую</button>
+                    <input type="text" placeholder="ВАШЕ ИМЯ" class="p-6 rounded-2xl outline-none text-xs font-bold uppercase tracking-widest">
+                    <input type="tel" placeholder="ТЕЛЕФОН / ТЕЛЕГРАМ" class="p-6 rounded-2xl outline-none text-xs font-bold uppercase tracking-widest">
+                    <textarea id="orderWishes" placeholder="ВАШИ ПОЖЕЛАНИЯ (ИЛИ НАЗВАНИЕ ПАЗЛА ИЗ КАТАЛОГА)" class="p-6 rounded-2xl outline-none text-xs font-bold uppercase tracking-widest h-32"></textarea>
+                    <button type="submit" class="marine-btn py-6 rounded-2xl font-black text-xs uppercase tracking-[0.4em]">Отправить запрос</button>
                 </form>
             </div>
-            <div class="mt-20 opacity-20 text-[10px] font-black uppercase tracking-[0.5em]">
-                MyPhotoPuzzle • Perm • 2026
-            </div>
         </div>
     </section>
+
+    <footer class="py-12 border-t border-white/5 text-center">
+        <p class="text-[9px] font-black uppercase tracking-[0.5em] text-white/20">© 2026 MyPhotoPuzzle • Perm • Premium Collection</p>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1500 });
+        AOS.init({ duration: 1000, once: true });
 
-        // THREE.JS ЛОГИКА
-        const scene = new THREE.Scene();
-        const container = document.getElementById('canvas-3d');
-        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        container.appendChild(renderer.domElement);
+        // --- CATALOG DATA ---
+        const products = [
+            { id: 1, title: "Горное озеро", category: "nature", price: "2500 ₽", img: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, title: "Личный портрет", category: "portrait", price: "от 3000 ₽", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, title: "Звездная ночь", category: "art", price: "3800 ₽", img: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, title: "Тропики", category: "nature", price: "2500 ₽", img: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80" },
+            { id: 5, title: "Черно-белый стиль", category: "portrait", price: "2800 ₽", img: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=600&q=80" },
+            { id: 6, title: "Абстракция №1", category: "art", price: "3200 ₽", img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&q=80" },
+        ];
 
-        // Группировка для модели
-        const modelGroup = new THREE.Group();
-        scene.add(modelGroup);
-
-        // СОЗДАЕМ СТИЛИЗОВАННУЮ МОДЕЛЬ (ЗАМЕНА ПАЗЛА)
-        // В реальности здесь будет loader.load('model.glb')
-        const createStylizedBeauty = () => {
-            const bodyMat = new THREE.MeshStandardMaterial({ 
-                color: 0xc5a059, // Золотистый оттенок
-                metalness: 0.8, 
-                roughness: 0.2,
-                wireframe: false 
+        function renderCatalog(filter = 'all') {
+            const grid = document.getElementById('catalogGrid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            filtered.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card glass rounded-[3rem] overflow-hidden flex flex-col group">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="${p.img}" class="w-full h-full object-cover" alt="${p.title}">
+                            <div class="absolute top-6 right-6 bg-black/60 backdrop-blur px-4 py-2 rounded-full text-[10px] font-bold tracking-widest">${p.price}</div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <h3 class="text-xl font-black uppercase italic tracking-tighter mb-4">${p.title}</h3>
+                            <button onclick="selectProduct('${p.title}')" class="mt-auto w-full border border-white/10 py-4 rounded-2xl text-[9px] font-black uppercase tracking-widest group-hover:bg-blue-600 group-hover:border-blue-600 transition duration-300">Выбрать</button>
+                        </div>
+                    </div>
+                `;
             });
-
-            // Торс (абстракция)
-            const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.8, 2, 32), bodyMat);
-            modelGroup.add(torso);
-
-            // Голова
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), bodyMat);
-            head.position.y = 1.4;
-            modelGroup.add(head);
-
-            // Постамент
-            const base = new THREE.Mesh(new THREE.BoxGeometry(2, 0.2, 2), bodyMat);
-            base.position.y = -1.1;
-            modelGroup.add(base);
-        };
-
-        createStylizedBeauty();
-
-        // ОСВЕЩЕНИЕ (Морской свет)
-        const light1 = new THREE.PointLight(0x00aaff, 2, 50);
-        light1.position.set(5, 5, 5);
-        scene.add(light1);
-
-        const light2 = new THREE.PointLight(0xffffff, 1, 50);
-        light2.position.set(-5, -5, 2);
-        scene.add(light2);
-
-        scene.add(new THREE.AmbientLight(0x404040, 2));
-
-        camera.position.z = 6;
-
-        // Взаимодействие
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-
-        container.onmousedown = () => isDragging = true;
-        window.onmouseup = () => isDragging = false;
-        
-        container.onmousemove = (e) => {
-            const deltaMove = {
-                x: e.offsetX - previousMousePosition.x,
-                y: e.offsetY - previousMousePosition.y
-            };
-
-            if (isDragging) {
-                modelGroup.rotation.y += deltaMove.x * 0.01;
-                modelGroup.rotation.x += deltaMove.y * 0.01;
-            }
-            previousMousePosition = { x: e.offsetX, y: e.offsetY };
-        };
-
-        // Анимация
-        function animate() {
-            requestAnimationFrame(animate);
-            if (!isDragging) {
-                modelGroup.rotation.y += 0.005;
-            }
-            renderer.render(scene, camera);
         }
-        animate();
 
-        // Resize
-        window.onresize = () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
+        function filterCatalog(cat) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderCatalog(cat);
+        }
+
+        function selectProduct(name) {
+            const wishes = document.getElementById('orderWishes');
+            wishes.value = "Хочу заказать пазл: " + name;
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+            wishes.focus();
+        }
+
+        // --- 3D & CALC ---
+        const init3D = () => {
+            const container = document.getElementById('canvas-3d');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+            const group = new THREE.Group();
+            const mat = new THREE.MeshStandardMaterial({ color: 0xc5a059, metalness: 0.9, roughness: 0.1 });
+            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.8, 2.5, 32), mat);
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), mat);
+            head.position.y = 1.6;
+            group.add(body, head); scene.add(group);
+            const l = new THREE.PointLight(0x3b82f6, 2, 50); l.position.set(5, 5, 5); scene.add(l, new THREE.AmbientLight(0xffffff, 0.5));
+            camera.position.z = 7;
+            const loop = () => { requestAnimationFrame(loop); group.rotation.y += 0.005; renderer.render(scene, camera); };
+            loop();
+        };
+
+        window.onload = () => {
+            init3D();
+            renderCatalog();
+        };
+
+        document.getElementById('sizeInput').onchange = (e) => {
+            document.getElementById('finalPrice').innerText = parseInt(e.target.value).toLocaleString() + ' ₽';
         };
     </script>
 </body>
