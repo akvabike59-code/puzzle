@@ -5,97 +5,241 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyPhotoPuzzle | Деревянные пазлы Пермь</title>
     
-<script>
-AOS.init({ duration: 1000, once: true });
-
-const start3D = () => {
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.shadowMap.enabled = true;
-    container.appendChild(renderer.domElement);
-
-    const group = new THREE.Group();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    // Основная деревянная пластина
-    const woodMat = new THREE.MeshStandardMaterial({ 
-        color: 0xcdab8f, 
-        roughness: 0.65, 
-        metalness: 0.05 
-    });
-    
-    const base = new THREE.Mesh(new THREE.BoxGeometry(4, 4, 0.35), woodMat);
-    
-    // Классические пазловые элементы
-    const tabShape = new THREE.Shape();
-    tabShape.moveTo(-0.8, 0.8);
-    tabShape.lineTo(-0.8, 1.4);
-    tabShape.bezierCurveTo(-1.3, 1.8, -1.3, 2.2, -0.8, 2.4);
-    tabShape.lineTo(0.8, 2.4);
-    tabShape.bezierCurveTo(1.3, 2.2, 1.3, 1.8, 0.8, 1.4);
-    tabShape.lineTo(0.8, 0.8);
-    
-    const extrudeSettings = { depth: 0.35, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05 };
-    const tabGeo = new THREE.ExtrudeGeometry(tabShape, extrudeSettings);
-    
-    const tab1 = new THREE.Mesh(tabGeo, woodMat);
-    tab1.position.set(0, 1.7, 0);
-    const tab2 = new THREE.Mesh(tabGeo, woodMat);
-    tab2.rotation.z = Math.PI;
-    tab2.position.set(0, -1.7, 0);
-    
-    group.add(base, tab1, tab2);
-    scene.add(group);
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; color: #0f172a; }
+        
+        .glass-header { background: rgba(255, 255, 255, 0.9); backdrop-filter: saturate(180%) blur(20px); }
+        .title-xl { font-size: clamp(2.5rem, 8vw, 5rem); line-height: 0.9; letter-spacing: -0.04em; }
+        
+        /* Стили для соцсетей */
+        .btn-social { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-social:hover { transform: translateY(-5px); filter: brightness(1.1); }
+        
+        .tg-color { background: #229ED9; }
+        .inst-color { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .wa-color { background: #25D366; }
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-    const light = new THREE.PointLight(0xffddaa, 1.8, 20);
-    light.position.set(5, 8, 6);
-    scene.add(light);
-    const light2 = new THREE.PointLight(0x99ccff, 1, 20);
-    light2.position.set(-5, -3, 8);
-    scene.add(light2);
+        .floating-contacts { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; display: flex; flex-direction: column; gap: 0.75rem; }
+    </style>
+</head>
+<body class="bg-white antialiased">
 
-    camera.position.set(2, 3, 7);
-    camera.lookAt(0, 0, 0);
+    <div class="floating-contacts">
+        <a href="https://t.me/your_nickname" target="_blank" class="w-14 h-14 tg-color text-white rounded-full flex items-center justify-center shadow-xl btn-social">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-2.003 9.464c-.149.659-.541.823-1.091.515l-3.047-2.246-1.47 1.416c-.163.163-.3.299-.614.299l.219-3.11 5.659-5.111c.247-.219-.054-.341-.381-.124l-6.995 4.402-3.015-.943c-.655-.205-.667-.655.137-.969l11.77-4.535c.545-.199 1.021.127.83 1.282z"/></svg>
+        </a>
+    </div>
 
-    let drag = false, prevX = 0, prevY = 0;
-    container.addEventListener('mousedown', () => drag = true);
-    window.addEventListener('mouseup', () => drag = false);
-    container.addEventListener('mousemove', e => {
-        if (!drag) return;
-        group.rotation.y += (e.offsetX - prevX) * 0.005;
-        group.rotation.x += (e.offsetY - prevY) * 0.005;
-        prevX = e.offsetX; prevY = e.offsetY;
-    });
+    <header class="fixed w-full top-0 z-[100] glass-header border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="font-black italic text-xl tracking-tighter uppercase">MyPhoto<span class="text-blue-600">Puzzle</span></div>
+            <nav class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                <a href="#catalog" class="hover:text-blue-600 transition">Каталог</a>
+                <a href="#reviews" class="hover:text-blue-600 transition">Отзывы</a>
+                <a href="#order" class="hover:text-blue-600 transition">Контакты</a>
+            </nav>
+            <a href="https://t.me/your_nickname" class="hidden sm:block text-[11px] font-black text-blue-600 border-b-2 border-blue-600 pb-1 uppercase tracking-widest">Написать мастеру</a>
+        </div>
+    </header>
 
-    const animate = () => {
-        requestAnimationFrame(animate);
-        if (!drag) group.rotation.y += 0.003;
-        renderer.render(scene, camera);
-    };
-    animate();
+    <section class="pt-40 pb-20 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <h1 class="title-xl font-black mb-8 italic uppercase">Твой кадр<br>в деталях</h1>
+                <p class="text-slate-500 text-lg mb-10 font-medium">Производство уникальных деревянных пазлов в Перми. Мы не просто режем дерево, мы создаем эмоции.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#calc" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-blue-500/30 hover:scale-105 transition">Рассчитать цену</a>
+                    <a href="https://instagram.com/your_account" target="_blank" class="inst-color text-white px-8 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition shadow-lg">Наш Instagram</a>
+                </div>
+            </div>
+            <div id="canvas-container" class="aspect-square bg-slate-50 rounded-[4rem] border-[12px] border-white shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing" data-aos="zoom-in"></div>
+        </div>
+    </section>
 
-    // Кнопки
-    const btnContainer = document.createElement('div');
-    btnContainer.className = 'flex justify-center gap-4 mt-6';
-    btnContainer.innerHTML = `
-        <button onclick="changeWoodColor()" class="bg-amber-700 text-white px-8 py-3 rounded-2xl text-sm font-bold">Другое дерево</button>
-        <button onclick="zoomPuzzle()" class="bg-slate-800 text-white px-8 py-3 rounded-2xl text-sm font-bold">Посмотреть ближе</button>
-    `;
-    container.parentNode.appendChild(btnContainer);
-};
+    <section id="reviews" class="bg-slate-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-black mb-16 uppercase tracking-tighter italic text-center">Что говорят клиенты</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm" data-aos="fade-up">
+                    <div class="text-blue-500 mb-6">★★★★★</div>
+                    <p class="text-slate-600 italic mb-8">"Заказала пазл А3 в подарок мужу. Качество резки поразило — всё идеально подходит друг к другу. Упаковка пахнет деревом, это очень круто!"</p>
+                    <div class="font-black text-xs uppercase tracking-widest">— Елена, Пермь</div>
+                </div>
+                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-blue-500 mb-6">★★★★★</div>
+                    <p class="text-slate-600 italic mb-8">"Делали корпоративный заказ для ИТ-отдела. Логотип напечатан четко, форма деталей — огонь! Ребята оперативно всё подготовили."</p>
+                    <div class="font-black text-xs uppercase tracking-widest">— Алексей, B2B</div>
+                </div>
+                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-blue-500 mb-6">★★★★★</div>
+                    <p class="text-slate-600 italic mb-8">"Лучший подарок на годовщину. Фото получилось ярким, собирали всей семьей два вечера. Спасибо мастеру за подход!"</p>
+                    <div class="font-black text-xs uppercase tracking-widest">— Дмитрий В.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-window.onload = start3D;
+    <section id="order" class="py-32 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="bg-slate-900 rounded-[4rem] overflow-hidden grid lg:grid-cols-2">
+                <div class="p-12 md:p-20 text-white">
+                    <h2 class="text-4xl font-black mb-8 uppercase italic leading-tight">Свяжитесь<br>с мастером</h2>
+                    <p class="text-slate-400 mb-12 font-medium">Ответим на любые вопросы, поможем выбрать формат и подготовить фото к печати.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-blue-400 font-bold italic">P</div>
+                            <span class="font-bold text-slate-300 tracking-widest">Пермь, Индустриальный район</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-blue-400 font-bold italic">W</div>
+                            <span class="font-bold text-slate-300 tracking-widest">Пн — Вс, 09:00 — 21:00</span>
+                        </div>
+                    </div>
 
-window.changeWoodColor = () => {
-    alert('Здесь можно менять цвет дерева — добавлю в следующей версии 😉');
-};
+                    <div class="flex gap-4 mt-12">
+                        <a href="https://t.me/your_nickname" class="w-14 h-14 tg-color rounded-2xl flex items-center justify-center btn-social">
+                            <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-2.003 9.464c-.149.659-.541.823-1.091.515l-3.047-2.246-1.47 1.416c-.163.163-.3.299-.614.299l.219-3.11 5.659-5.111c.247-.219-.054-.341-.381-.124l-6.995 4.402-3.015-.943c-.655-.205-.667-.655.137-.969l11.77-4.535c.545-.199 1.021.127.83 1.282z"/></svg>
+                        </a>
+                        <a href="https://wa.me/your_number" class="w-14 h-14 wa-color rounded-2xl flex items-center justify-center btn-social">
+                            <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.406.836 3.107 1.28 4.847 1.281 5.177 0 9.389-4.213 9.391-9.391.002-2.51-.975-4.87-2.751-6.648-1.776-1.778-4.137-2.756-6.648-2.757-5.178 0-9.39 4.213-9.391 9.391-.001 1.83.5 3.588 1.446 5.111l-.955 3.486 3.568-.936z"/></svg>
+                        </a>
+                        <a href="https://instagram.com/your_account" class="w-14 h-14 inst-color rounded-2xl flex items-center justify-center btn-social">
+                            <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
 
-window.zoomPuzzle = () => {
-    alert('Кликни и покрути мышкой, пазл уже в 3D!');
-};
-</script>
+                <div class="bg-slate-800/50 p-12 md:p-20">
+                    <form class="grid gap-4">
+                        <input type="text" placeholder="Имя" class="p-6 bg-slate-900 border border-slate-700 text-white rounded-2xl outline-none focus:border-blue-500 transition">
+                        <input type="tel" placeholder="Телефон / Telegram" class="p-6 bg-slate-900 border border-slate-700 text-white rounded-2xl outline-none focus:border-blue-500 transition">
+                        <textarea placeholder="Опишите вашу идею" class="p-6 bg-slate-900 border border-slate-700 text-white rounded-2xl outline-none focus:border-blue-500 transition h-32"></textarea>
+                        <button class="bg-blue-600 text-white py-6 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">© 2026 MyPhotoPuzzle. Perm Industrial District.</div>
+            <div class="flex gap-8 text-[10px] font-black uppercase tracking-widest">
+                <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-600">Production Terms</a>
+            </div>
+        </div>
+    </footer>
+
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        const start3D = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            const group = new THREE.Group();
+            
+            // Основная деревянная пластина
+            const woodMat = new THREE.MeshStandardMaterial({ 
+                color: 0xcdab8f, 
+                roughness: 0.65, 
+                metalness: 0.05 
+            });
+            
+            const base = new THREE.Mesh(new THREE.BoxGeometry(4, 4, 0.35), woodMat);
+            
+            // Выступы пазла (табы)
+            const tabShape = new THREE.Shape();
+            tabShape.moveTo(-0.8, 0.8);
+            tabShape.lineTo(-0.8, 1.4);
+            tabShape.bezierCurveTo(-1.3, 1.8, -1.3, 2.2, -0.8, 2.4);
+            tabShape.lineTo(0.8, 2.4);
+            tabShape.bezierCurveTo(1.3, 2.2, 1.3, 1.8, 0.8, 1.4);
+            tabShape.lineTo(0.8, 0.8);
+            
+            const extrudeSettings = { depth: 0.35, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05 };
+            const tabGeo = new THREE.ExtrudeGeometry(tabShape, extrudeSettings);
+            
+            const tab1 = new THREE.Mesh(tabGeo, woodMat);
+            tab1.position.set(0, 1.7, 0);
+            const tab2 = new THREE.Mesh(tabGeo, woodMat);
+            tab2.rotation.z = Math.PI;
+            tab2.position.set(0, -1.7, 0);
+            
+            group.add(base, tab1, tab2);
+            scene.add(group);
+
+            // Освещение
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const light = new THREE.PointLight(0xffddaa, 1.8, 20);
+            light.position.set(5, 8, 6);
+            scene.add(light);
+            const light2 = new THREE.PointLight(0x99ccff, 1, 20);
+            light2.position.set(-5, -3, 8);
+            scene.add(light2);
+
+            camera.position.set(2, 3, 7);
+            camera.lookAt(0, 0, 0);
+
+            // Управление мышкой
+            let drag = false, prevX = 0, prevY = 0;
+            container.addEventListener('mousedown', () => drag = true);
+            window.addEventListener('mouseup', () => drag = false);
+            container.addEventListener('mousemove', e => {
+                if (!drag) return;
+                group.rotation.y += (e.offsetX - prevX) * 0.005;
+                group.rotation.x += (e.offsetY - prevY) * 0.005;
+                prevX = e.offsetX; 
+                prevY = e.offsetY;
+            });
+
+            const animate = () => {
+                requestAnimationFrame(animate);
+                if (!drag) group.rotation.y += 0.003;
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            // Кнопки под 3D-пазлом
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'flex justify-center gap-4 mt-6 flex-wrap';
+            btnContainer.innerHTML = `
+                <button onclick="changeWoodColor()" 
+                        class="bg-amber-800 hover:bg-amber-700 text-white px-8 py-4 rounded-2xl text-sm font-bold transition">
+                    Сменить цвет дерева
+                </button>
+                <button onclick="zoomPuzzle()" 
+                        class="bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-2xl text-sm font-bold transition">
+                    Посмотреть ближе
+                </button>
+            `;
+            container.parentNode.appendChild(btnContainer);
+        };
+
+        window.onload = start3D;
+
+        // Функции кнопок
+        window.changeWoodColor = () => {
+            alert('В следующей версии здесь будет смена цвета дерева (светлое, тёмное, орех и т.д.)');
+        };
+
+        window.zoomPuzzle = () => {
+            alert('Просто зажми левую кнопку мыши на пазле и крути в разные стороны 😉');
+        };
+    </script>
+
 </body>
 </html>
