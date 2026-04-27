@@ -146,14 +146,42 @@
         </a>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 900, once: true });
 
-        // 3D с улучшениями
+        // Калькулятор
+        let currentBase = 2500;
+        let currentBox = 0;
+        const priceEl = document.getElementById('totalPrice');
+
+        if (document.getElementById('sizeSelect')) {
+            document.getElementById('sizeSelect').addEventListener('change', (e) => {
+                currentBase = parseInt(e.target.value);
+                calc();
+            });
+        }
+
+        function updateBox(price, btn) {
+            currentBox = price;
+            document.querySelectorAll('.box-btn').forEach(b => {
+                b.classList.remove('active', 'border-amber-600', 'bg-amber-50');
+            });
+            btn.classList.add('active', 'border-amber-600', 'bg-amber-50');
+            calc();
+        }
+
+        function calc() {
+            if (priceEl) priceEl.innerText = (currentBase + currentBox).toLocaleString() + ' ₽';
+        }
+
+        // Улучшенный 3D + кнопки
         const start3D = () => {
             const container = document.getElementById('puzzle-3d-viewport');
-            if (!container) return;
+            if (!container) {
+                console.warn('Элемент #puzzle-3d-viewport не найден');
+                return;
+            }
 
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
@@ -164,14 +192,13 @@
             const group = new THREE.Group();
             const woodMat = new THREE.MeshStandardMaterial({ 
                 color: 0xd2b48c, 
-                roughness: 0.7, 
-                metalness: 0.1 
+                roughness: 0.72, 
+                metalness: 0.08 
             });
 
             const base = new THREE.Mesh(new THREE.BoxGeometry(3.9, 3.9, 0.42), woodMat);
             group.add(base);
 
-            // Выступы пазла
             const tabShape = new THREE.Shape();
             tabShape.moveTo(-0.75, 0.75);
             tabShape.lineTo(-0.75, 1.5);
@@ -193,17 +220,17 @@
             group.add(tab2);
 
             scene.add(group);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.85));
 
-            // Улучшенное освещение
-            scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-            const light1 = new THREE.PointLight(0xffffff, 2.5, 50);
+            const light1 = new THREE.PointLight(0xffffff, 2.8, 50);
             light1.position.set(8, 10, 6);
             scene.add(light1);
-            const light2 = new THREE.PointLight(0x005BFF, 1.8, 50);
-            light2.position.set(-6, -5, 10);
+
+            const light2 = new THREE.PointLight(0x005BFF, 1.6, 50);
+            light2.position.set(-7, -6, 12);
             scene.add(light2);
 
-            camera.position.set(2, 2.5, 8);
+            camera.position.set(2.2, 2.8, 8.5);
             camera.lookAt(0, 0, 0);
 
             let dragging = false;
@@ -213,23 +240,49 @@
             window.addEventListener('mouseup', () => dragging = false);
             container.addEventListener('mousemove', (e) => {
                 if (!dragging) return;
-                group.rotation.y += (e.offsetX - prev.x) * 0.008;
-                group.rotation.x += (e.offsetY - prev.y) * 0.008;
+                group.rotation.y += (e.offsetX - prev.x) * 0.0075;
+                group.rotation.x += (e.offsetY - prev.y) * 0.0075;
                 prev.x = e.offsetX;
                 prev.y = e.offsetY;
             });
 
             const animate = () => {
                 requestAnimationFrame(animate);
-                if (!dragging) {
-                    group.rotation.y += 0.0018;
-                }
+                if (!dragging) group.rotation.y += 0.002;
                 renderer.render(scene, camera);
             };
             animate();
+
+            // === Кнопки под 3D (надёжная версия) ===
+            if (!document.getElementById('puzzle-buttons')) {
+                const btnDiv = document.createElement('div');
+                btnDiv.id = 'puzzle-buttons';
+                btnDiv.className = 'flex flex-wrap justify-center gap-4 mt-8';
+                btnDiv.innerHTML = `
+                    <button onclick="changeWoodColor()" 
+                            class="px-8 py-4 bg-amber-700 hover:bg-amber-600 text-white rounded-2xl font-bold text-sm transition shadow">
+                        Сменить цвет дерева
+                    </button>
+                    <button onclick="zoomInPuzzle()" 
+                            class="px-8 py-4 bg-[#005BFF] hover:bg-blue-700 text-white rounded-2xl font-bold text-sm transition shadow">
+                        Посмотреть ближе
+                    </button>
+                `;
+                container.parentNode.appendChild(btnDiv);
+            }
         };
 
         window.onload = start3D;
+
+        // Функции кнопок
+        window.changeWoodColor = () => {
+            alert('Скоро здесь будет смена цвета дерева (светлое / тёмное / орех)');
+        };
+
+        window.zoomInPuzzle = () => {
+            alert('Зажми левую кнопку мыши на пазле и крути. Можно вращать в разные стороны!');
+        };
     </script>
+
 </body>
 </html>
