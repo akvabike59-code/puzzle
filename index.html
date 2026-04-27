@@ -9,87 +9,117 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: system-ui, sans-serif; 
-            margin: 0; 
+            font-family: system-ui, -apple-system, sans-serif; 
             background: #fff; 
             color: #1f2937; 
+            line-height: 1.5;
         }
-        .glass-nav { 
-            background: rgba(255,255,255,0.95); 
-            backdrop-filter: blur(20px); 
-            position: fixed; 
-            width: 100%; 
-            z-index: 50; 
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid #eee;
+            z-index: 100;
+            padding: 1rem 0;
         }
-        .logo { 
-            font-size: 2.1rem; 
-            font-weight: 900; 
-            letter-spacing: -0.04em; 
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 80px;
         }
-        .logo span { color: #005BFF; }
-        #puzzle-3d-viewport { 
-            width: 100%; 
-            height: 520px; 
-            background: #f8f9fa; 
-            border-radius: 28px; 
-            overflow: hidden; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
         }
+        @media (min-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr 1fr; }
+        }
+        
+        #puzzle-3d-viewport {
+            width: 100%;
+            height: 520px;
+            background: #f8f9fa;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
         .control-buttons {
-            margin-top: 24px;
+            margin-top: 28px;
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
             justify-content: center;
         }
         .control-btn {
-            padding: 14px 32px;
+            padding: 16px 32px;
             border-radius: 9999px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.05rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            border: none;
         }
         .btn-wood { background: #d97706; color: white; }
-        .btn-wood:hover { background: #b45309; }
+        .btn-wood:hover { background: #b45309; transform: translateY(-2px); }
         .btn-blue { background: #005BFF; color: white; }
-        .btn-blue:hover { background: #0048cc; }
+        .btn-blue:hover { background: #0048cc; transform: translateY(-2px); }
+        
+        #order {
+            background: #111827;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="glass-nav py-5">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <div class="logo">MyPhoto<span>Puzzle</span></div>
-            <a href="#order" class="bg-[#005BFF] text-white px-8 py-3 rounded-full font-bold">Заказать</a>
+    <nav class="nav">
+        <div class="container flex justify-between items-center">
+            <div class="logo text-3xl font-black tracking-tighter">
+                MyPhoto<span style="color:#005BFF">Puzzle</span>
+            </div>
+            <a href="#order" class="bg-[#005BFF] text-white px-8 py-3.5 rounded-full font-bold text-sm hover:bg-blue-700 transition">Заказать</a>
         </div>
     </nav>
 
-    <section class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                    Деревянные пазлы,<br>которые собирают эмоции
-                </h1>
-                <p class="text-xl text-gray-600">Производство в Перми • Натуральная берёза • Премиум качество</p>
-            </div>
-            
-            <div>
-                <div id="puzzle-3d-viewport"></div>
-                <div class="control-buttons" id="control-buttons"></div>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+                        Деревянные пазлы,<br>которые собирают эмоции
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Производство в Перми • Натуральная берёза • Лазерная резка
+                    </p>
+                </div>
+                
+                <div>
+                    <div id="puzzle-3d-viewport"></div>
+                    <div class="control-buttons" id="control-buttons"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="order" class="py-24 bg-gray-900 text-white text-center">
-        <div class="max-w-md mx-auto px-6">
-            <h2 class="text-4xl font-bold mb-6">Свяжитесь с нами</h2>
-            <a href="tel:+79000000000" class="inline-block bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold text-xl mb-8">
-                📞 Позвонить мастеру
+    <section id="order">
+        <div class="container">
+            <h2 class="text-4xl font-bold mb-8">Свяжитесь с мастером</h2>
+            <a href="tel:+79000000000" 
+               class="inline-flex items-center gap-4 bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold text-xl hover:scale-105 transition">
+                📞 Позвонить
             </a>
-            <p class="text-gray-400">Пермь • Ответим быстро</p>
+            <p class="mt-10 text-gray-400">г. Пермь, Индустриальный район • Ответим быстро</p>
         </div>
     </section>
 
@@ -99,69 +129,72 @@
 
         const init3D = () => {
             const container = document.getElementById('puzzle-3d-viewport');
-            if (!container) return console.error("Контейнер 3D не найден");
+            if (!container) return;
 
             const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const camera = new THREE.PerspectiveCamera(48, container.clientWidth / container.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
             renderer.setSize(container.clientWidth, container.clientHeight);
             container.appendChild(renderer.domElement);
 
             const group = new THREE.Group();
-            const mat = new THREE.MeshStandardMaterial({ 
+            const material = new THREE.MeshStandardMaterial({ 
                 color: 0xd2b48c, 
-                roughness: 0.75 
+                roughness: 0.75, 
+                metalness: 0.05 
             });
 
-            // Основная пластина
-            const base = new THREE.Mesh(new THREE.BoxGeometry(4, 4, 0.45), mat);
+            // Основание пазла
+            const base = new THREE.Mesh(new THREE.BoxGeometry(4, 4, 0.45), material);
             group.add(base);
 
-            // Выступы пазла
-            const knobGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.45, 32);
-            const knob1 = new THREE.Mesh(knobGeo, mat);
-            knob1.rotation.x = Math.PI / 2;
-            knob1.position.set(1.6, 0, 0);
-            group.add(knob1);
+            // Выступы
+            const tabGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.45, 32);
+            const tab1 = new THREE.Mesh(tabGeo, material);
+            tab1.rotation.x = Math.PI / 2;
+            tab1.position.set(1.7, 0, 0);
+            group.add(tab1);
 
-            const knob2 = knob1.clone();
-            knob2.position.set(-1.6, 0, 0);
-            group.add(knob2);
+            const tab2 = tab1.clone();
+            tab2.position.set(-1.7, 0, 0);
+            group.add(tab2);
 
             scene.add(group);
             scene.add(new THREE.AmbientLight(0xffffff, 0.9));
 
-            const light = new THREE.PointLight(0x005BFF, 2.5, 30);
-            light.position.set(6, 8, 10);
-            scene.add(light);
+            const pointLight = new THREE.PointLight(0x005BFF, 2.5, 50);
+            pointLight.position.set(8, 10, 10);
+            scene.add(pointLight);
 
-            camera.position.set(0, 1, 9);
+            camera.position.set(0, 2, 9);
             camera.lookAt(0, 0, 0);
 
-            let isDragging = false;
-            let previousMouse = { x: 0, y: 0 };
+            let dragging = false;
+            let prev = { x: 0, y: 0 };
 
-            container.addEventListener('mousedown', () => isDragging = true);
-            window.addEventListener('mouseup', () => isDragging = false);
+            container.addEventListener('mousedown', () => dragging = true);
+            window.addEventListener('mouseup', () => dragging = false);
             container.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                group.rotation.y += (e.offsetX - previousMouse.x) * 0.008;
-                group.rotation.x += (e.offsetY - previousMouse.y) * 0.008;
-                previousMouse.x = e.offsetX;
-                previousMouse.y = e.offsetY;
+                if (dragging) {
+                    group.rotation.y += (e.offsetX - prev.x) * 0.009;
+                    group.rotation.x += (e.offsetY - prev.y) * 0.009;
+                }
+                prev.x = e.offsetX;
+                prev.y = e.offsetY;
             });
 
             const animate = () => {
                 requestAnimationFrame(animate);
-                if (!isDragging) group.rotation.y += 0.003;
+                if (!dragging) group.rotation.y += 0.0035;
                 renderer.render(scene, camera);
             };
             animate();
 
             // Кнопки
-            const btnContainer = document.getElementById('control-buttons');
-            if (btnContainer) {
-                btnContainer.innerHTML = `
+            const btns = document.getElementById('control-buttons');
+            if (btns) {
+                btns.innerHTML = `
                     <button onclick="changeWoodColor()" class="control-btn btn-wood">🌳 Сменить цвет дерева</button>
                     <button onclick="zoomInPuzzle()" class="control-btn btn-blue">🔍 Посмотреть ближе</button>
                 `;
@@ -170,7 +203,7 @@
 
         window.onload = init3D;
 
-        window.changeWoodColor = () => alert("В следующей версии можно будет менять цвет дерева");
+        window.changeWoodColor = () => alert("Скоро здесь будет выбор цвета дерева (светлый / тёмный / орех)");
         window.zoomInPuzzle = () => alert("Зажми левую кнопку мыши на пазле и крути в разные стороны");
     </script>
 </body>
