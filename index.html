@@ -146,11 +146,11 @@
         </a>
     </div>
 
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 900, once: true });
 
-        // Калькулятор
+        // ==================== КАЛЬКУЛЯТОР ====================
         let currentBase = 2500;
         let currentBox = 0;
         const priceEl = document.getElementById('totalPrice');
@@ -175,11 +175,11 @@
             if (priceEl) priceEl.innerText = (currentBase + currentBox).toLocaleString() + ' ₽';
         }
 
-        // Улучшенный 3D + кнопки
+        // ==================== 3D ПАЗЛ + КНОПКИ ====================
         const start3D = () => {
             const container = document.getElementById('puzzle-3d-viewport');
             if (!container) {
-                console.warn('Элемент #puzzle-3d-viewport не найден');
+                console.error('Элемент #puzzle-3d-viewport не найден!');
                 return;
             }
 
@@ -192,13 +192,14 @@
             const group = new THREE.Group();
             const woodMat = new THREE.MeshStandardMaterial({ 
                 color: 0xd2b48c, 
-                roughness: 0.72, 
-                metalness: 0.08 
+                roughness: 0.7, 
+                metalness: 0.1 
             });
 
             const base = new THREE.Mesh(new THREE.BoxGeometry(3.9, 3.9, 0.42), woodMat);
             group.add(base);
 
+            // Пазловые выступы
             const tabShape = new THREE.Shape();
             tabShape.moveTo(-0.75, 0.75);
             tabShape.lineTo(-0.75, 1.5);
@@ -230,9 +231,10 @@
             light2.position.set(-7, -6, 12);
             scene.add(light2);
 
-            camera.position.set(2.2, 2.8, 8.5);
+            camera.position.set(2, 2.5, 8.5);
             camera.lookAt(0, 0, 0);
 
+            // Управление мышью
             let dragging = false;
             let prev = { x: 0, y: 0 };
 
@@ -240,8 +242,8 @@
             window.addEventListener('mouseup', () => dragging = false);
             container.addEventListener('mousemove', (e) => {
                 if (!dragging) return;
-                group.rotation.y += (e.offsetX - prev.x) * 0.0075;
-                group.rotation.x += (e.offsetY - prev.y) * 0.0075;
+                group.rotation.y += (e.offsetX - prev.x) * 0.008;
+                group.rotation.x += (e.offsetY - prev.y) * 0.008;
                 prev.x = e.offsetX;
                 prev.y = e.offsetY;
             });
@@ -253,22 +255,24 @@
             };
             animate();
 
-            // === Кнопки под 3D (надёжная версия) ===
-            if (!document.getElementById('puzzle-buttons')) {
-                const btnDiv = document.createElement('div');
-                btnDiv.id = 'puzzle-buttons';
-                btnDiv.className = 'flex flex-wrap justify-center gap-4 mt-8';
-                btnDiv.innerHTML = `
+            // ========== КНОПКИ ПОД 3D (самая надёжная версия) ==========
+            const existingButtons = document.getElementById('puzzle-control-buttons');
+            if (!existingButtons) {
+                const btnContainer = document.createElement('div');
+                btnContainer.id = 'puzzle-control-buttons';
+                btnContainer.className = 'flex flex-wrap justify-center gap-4 mt-8 px-4';
+                btnContainer.innerHTML = `
                     <button onclick="changeWoodColor()" 
-                            class="px-8 py-4 bg-amber-700 hover:bg-amber-600 text-white rounded-2xl font-bold text-sm transition shadow">
-                        Сменить цвет дерева
+                            class="px-8 py-4 bg-amber-700 hover:bg-amber-600 text-white rounded-2xl font-bold text-sm transition-all active:scale-95 shadow">
+                        🌳 Сменить цвет дерева
                     </button>
                     <button onclick="zoomInPuzzle()" 
-                            class="px-8 py-4 bg-[#005BFF] hover:bg-blue-700 text-white rounded-2xl font-bold text-sm transition shadow">
-                        Посмотреть ближе
+                            class="px-8 py-4 bg-[#005BFF] hover:bg-blue-700 text-white rounded-2xl font-bold text-sm transition-all active:scale-95 shadow">
+                        🔍 Посмотреть ближе
                     </button>
                 `;
-                container.parentNode.appendChild(btnDiv);
+                // Вставляем кнопки сразу после контейнера 3D
+                container.parentNode.insertBefore(btnContainer, container.nextSibling);
             }
         };
 
@@ -276,13 +280,12 @@
 
         // Функции кнопок
         window.changeWoodColor = () => {
-            alert('Скоро здесь будет смена цвета дерева (светлое / тёмное / орех)');
+            alert('В следующей версии можно будет менять цвет дерева (светлый / тёмный / орех)');
         };
 
         window.zoomInPuzzle = () => {
-            alert('Зажми левую кнопку мыши на пазле и крути. Можно вращать в разные стороны!');
+            alert('Зажми левую кнопку мыши на пазле и крути в разные стороны 👍');
         };
     </script>
-
 </body>
 </html>
