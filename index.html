@@ -3,185 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Производство уникальных деревянных пазлов в Перми. Пазлы по вашим фото на заказ, корпоративные подарки и опт.">
+    <meta name="description" content="Производство уникальных деревянных пазлов в Перми. Пазлы по вашим фото на заказ.">
     <title>MyPhotoPuzzle | Деревянные пазлы в Перми</title>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
             --ozon-blue: #005BFF;
-            --ozon-orange: #FF6B00;
         }
-        body { 
-            font-family: 'Inter', system-ui, sans-serif; 
-            background-color: #ffffff; 
-            color: #1f2937; 
-            scroll-behavior: smooth; 
+        
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.6;
         }
-        .glass-nav { 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(20px); 
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
         }
-        .logo { font-size: 1.95rem; letter-spacing: -0.05em; font-weight: 900; }
-        .logo span { color: var(--ozon-blue); }
-        .product-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .product-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 25px 50px -12px rgb(0 91 255 / 0.25); }
-        .btn-ozon { background: var(--ozon-blue); }
-        .btn-ozon:hover { background: #0048cc; }
-        canvas { outline: none; }
+        
+        .logo {
+            font-size: 1.95rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+        
+        .btn-ozon {
+            background-color: var(--ozon-blue);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-ozon:hover {
+            background-color: #0048cc;
+            transform: translateY(-2px);
+        }
+        
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 91 255 / 0.25);
+        }
+        
+        #puzzle-3d-viewport {
+            border-radius: 3rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+        
+        .control-btn {
+            padding: 14px 28px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <!-- Навбар в стиле Ozon -->
-    <nav class="fixed w-full z-50 glass-nav border-b border-gray-100">
+    <!-- Навбар -->
+    <nav class="glass-nav fixed w-full z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <span class="logo font-black italic uppercase tracking-tighter">
-                    MyPhoto<span class="text-[#005BFF]">Puzzle</span>
-                </span>
+            <div class="logo font-black italic uppercase tracking-tighter">
+                MyPhoto<span class="text-[#005BFF]">Puzzle</span>
             </div>
-            <div class="hidden md:flex space-x-8 font-medium text-sm">
+            <div class="hidden md:flex gap-8 text-sm font-medium">
                 <a href="#ozon-catalog" class="hover:text-[#005BFF] transition">На Ozon</a>
                 <a href="#delivery" class="hover:text-[#005BFF] transition">Доставка</a>
                 <a href="#calc" class="hover:text-[#005BFF] transition">Расчёт</a>
             </div>
-            <a href="#order" class="btn-ozon text-white px-8 py-3 rounded-2xl font-bold text-sm hover:scale-105 transition">Заказать</a>
+            <a href="#order" class="btn-ozon text-sm">Заказать</a>
         </div>
     </nav>
 
-    <!-- Hero с улучшенным 3D -->
-    <section class="pt-32 pb-24 bg-white">
+    <!-- Hero с 3D -->
+    <section class="pt-32 pb-24">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right" data-aos-duration="800">
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-none mb-6">
-                    Деревянные пазлы,<br>которые <span class="text-[#005BFF]">собирают</span> эмоции
+            <div>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                    Деревянные пазлы,<br>которые собирают эмоции
                 </h1>
-                <p class="text-xl text-gray-600 mb-10">Премиум качество из Перми. Лазерная резка + яркая УФ-печать.</p>
-                <a href="#ozon-catalog" class="inline-block btn-ozon text-white px-10 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition shadow-lg">Смотреть на Ozon</a>
+                <p class="text-xl text-gray-600 mb-10">Премиум качество из натуральной берёзы. Производство в Перми.</p>
+                <a href="#ozon-catalog" class="btn-ozon inline-block text-lg">Смотреть на Ozon</a>
             </div>
-            <div class="relative" data-aos="zoom-in" data-aos-duration="1000">
-                <div id="puzzle-3d-viewport" class="w-full h-[500px] md:h-[560px] rounded-[3rem] bg-white shadow-2xl border-[18px] border-white overflow-hidden cursor-grab active:cursor-grabbing"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Почему выбирают нас -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">Почему выбирают MyPhotoPuzzle</h2>
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="text-center p-8 bg-white rounded-3xl" data-aos="fade-up">
-                    <div class="text-5xl mb-6">🔪</div>
-                    <h3 class="font-bold mb-2 text-lg">Идеальная резка</h3>
-                    <p class="text-gray-600">Детали встают с приятным щелчком</p>
-                </div>
-                <div class="text-center p-8 bg-white rounded-3xl" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-5xl mb-6">🌲</div>
-                    <h3 class="font-bold mb-2 text-lg">Натуральная берёза</h3>
-                    <p class="text-gray-600">Экологично и приятно на ощупь</p>
-                </div>
-                <div class="text-center p-8 bg-white rounded-3xl" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-5xl mb-6">🎁</div>
-                    <h3 class="font-bold mb-2 text-lg">Премиум упаковка</h3>
-                    <p class="text-gray-600">Пахнет деревом</p>
-                </div>
-                <div class="text-center p-8 bg-white rounded-3xl" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-5xl mb-6">⚡</div>
-                    <h3 class="font-bold mb-2 text-lg">Быстрое изготовление</h3>
-                    <p class="text-gray-600">От 3 дней</p>
-                </div>
+            <div>
+                <div id="puzzle-3d-viewport" class="w-full h-[520px] bg-white"></div>
+                
+                <!-- Кнопки под 3D -->
+                <div id="puzzle-buttons" class="flex flex-wrap justify-center gap-4 mt-8"></div>
             </div>
         </div>
     </section>
 
-    <!-- Ozon каталог (оставил как был, но с ozon-цветами) -->
-    <section id="ozon-catalog" class="py-24 bg-white">
-        <!-- (Здесь твой предыдущий блок с 4 карточками — оставил без изменений, он уже хорошо выглядит) -->
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-3 bg-blue-50 text-[#005BFF] px-6 py-2 rounded-full text-sm font-bold mb-4">
-                    🛒 Прямо с Ozon
-                </div>
-                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4">Смотри, что есть на Ozon</h2>
-            </div>
-            <!-- Вставь сюда свои 4 карточки из предыдущей версии -->
-            <!-- ... (карточки Принцесса, Фея, Лисёнок, Три поросёнка) ... -->
-        </div>
-    </section>
-
-    <!-- Улучшенные отзывы -->
-    <section class="py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16">Что говорят покупатели</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-3xl shadow-sm" data-aos="fade-up">
-                    <div class="text-[#005BFF] text-2xl mb-4">★★★★★</div>
-                    <p class="italic text-gray-700">"Собирали всей семьёй. Детали идеально подходят, печать очень яркая. Лучший подарок на Новый год!"</p>
-                    <div class="mt-6 font-semibold">— Анна, Екатеринбург</div>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-[#005BFF] text-2xl mb-4">★★★★☆</div>
-                    <p class="italic text-gray-700">"Заказывала пазл с фото собаки. Качество на высоте, коробка пахнет деревом. Доставка пришла быстро."</p>
-                    <div class="mt-6 font-semibold">— Дмитрий, Москва</div>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-[#005BFF] text-2xl mb-4">★★★★★</div>
-                    <p class="italic text-gray-700">"Делали корпоративные пазлы с логотипом компании. Клиенты в восторге! Всё чётко и в срок."</p>
-                    <div class="mt-6 font-semibold">— Ольга, B2B Пермь</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Доставка, конфигуратор, контакты и футер — оставил как в предыдущей версии (с синими акцентами) -->
+    <!-- Остальной контент (ozon-catalog, отзывы, доставка и т.д.) можешь оставить из предыдущей версии -->
 
     <!-- Плавающая кнопка -->
     <div class="fixed bottom-8 right-8 z-[100]">
-        <a href="tel:+79000000000" class="w-16 h-16 bg-[#005BFF] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition text-3xl">
+        <a href="tel:+79000000000" class="w-16 h-16 bg-[#005BFF] text-white rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition">
             📞
         </a>
     </div>
 
-            <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 900, once: true });
+        AOS.init({ duration: 800, once: true });
 
-        // ==================== КАЛЬКУЛЯТОР ====================
-        let currentBase = 2500;
-        let currentBox = 0;
-        const priceEl = document.getElementById('totalPrice');
-
-        if (document.getElementById('sizeSelect')) {
-            document.getElementById('sizeSelect').addEventListener('change', (e) => {
-                currentBase = parseInt(e.target.value);
-                calc();
-            });
-        }
-
-        function updateBox(price, btn) {
-            currentBox = price;
-            document.querySelectorAll('.box-btn').forEach(b => {
-                b.classList.remove('active', 'border-amber-600', 'bg-amber-50');
-            });
-            btn.classList.add('active', 'border-amber-600', 'bg-amber-50');
-            calc();
-        }
-
-        function calc() {
-            if (priceEl) priceEl.innerText = (currentBase + currentBox).toLocaleString() + ' ₽';
-        }
-
-        // ==================== 3D ПАЗЛ + КНОПКИ ====================
+        // ==================== 3D + Кнопки ====================
         const start3D = () => {
             const container = document.getElementById('puzzle-3d-viewport');
-            if (!container) {
-                console.error('Элемент #puzzle-3d-viewport не найден!');
-                return;
-            }
+            if (!container) return;
 
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
@@ -192,14 +135,13 @@
             const group = new THREE.Group();
             const woodMat = new THREE.MeshStandardMaterial({ 
                 color: 0xd2b48c, 
-                roughness: 0.7, 
-                metalness: 0.1 
+                roughness: 0.72, 
+                metalness: 0.08 
             });
 
             const base = new THREE.Mesh(new THREE.BoxGeometry(3.9, 3.9, 0.42), woodMat);
             group.add(base);
 
-            // Пазловые выступы
             const tabShape = new THREE.Shape();
             tabShape.moveTo(-0.75, 0.75);
             tabShape.lineTo(-0.75, 1.5);
@@ -231,10 +173,9 @@
             light2.position.set(-7, -6, 12);
             scene.add(light2);
 
-            camera.position.set(2, 2.5, 8.5);
+            camera.position.set(2, 2.8, 8.5);
             camera.lookAt(0, 0, 0);
 
-            // Управление мышью
             let dragging = false;
             let prev = { x: 0, y: 0 };
 
@@ -255,37 +196,24 @@
             };
             animate();
 
-            // ========== КНОПКИ ПОД 3D (самая надёжная версия) ==========
-            const existingButtons = document.getElementById('puzzle-control-buttons');
-            if (!existingButtons) {
-                const btnContainer = document.createElement('div');
-                btnContainer.id = 'puzzle-control-buttons';
-                btnContainer.className = 'flex flex-wrap justify-center gap-4 mt-8 px-4';
+            // Создаём кнопки
+            const btnContainer = document.getElementById('puzzle-buttons');
+            if (btnContainer) {
                 btnContainer.innerHTML = `
-                    <button onclick="changeWoodColor()" 
-                            class="px-8 py-4 bg-amber-700 hover:bg-amber-600 text-white rounded-2xl font-bold text-sm transition-all active:scale-95 shadow">
+                    <button onclick="changeWoodColor()" class="control-btn bg-amber-700 hover:bg-amber-600 text-white">
                         🌳 Сменить цвет дерева
                     </button>
-                    <button onclick="zoomInPuzzle()" 
-                            class="px-8 py-4 bg-[#005BFF] hover:bg-blue-700 text-white rounded-2xl font-bold text-sm transition-all active:scale-95 shadow">
+                    <button onclick="zoomInPuzzle()" class="control-btn bg-[#005BFF] hover:bg-blue-700 text-white">
                         🔍 Посмотреть ближе
                     </button>
                 `;
-                // Вставляем кнопки сразу после контейнера 3D
-                container.parentNode.insertBefore(btnContainer, container.nextSibling);
             }
         };
 
         window.onload = start3D;
 
-        // Функции кнопок
-        window.changeWoodColor = () => {
-            alert('В следующей версии можно будет менять цвет дерева (светлый / тёмный / орех)');
-        };
-
-        window.zoomInPuzzle = () => {
-            alert('Зажми левую кнопку мыши на пазле и крути в разные стороны 👍');
-        };
+        window.changeWoodColor = () => alert('Скоро здесь будет выбор цвета дерева');
+        window.zoomInPuzzle = () => alert('Зажми мышку на пазле и крути в разные стороны');
     </script>
 </body>
 </html>
